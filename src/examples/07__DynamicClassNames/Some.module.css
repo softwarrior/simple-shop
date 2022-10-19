@@ -1,0 +1,14 @@
+/* BEM */
+
+/* block */
+.some {
+}
+
+/* elements */
+.title {
+}
+
+/* modifiers */
+.danger {
+  background-color: burlywood;
+}

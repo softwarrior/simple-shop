@@ -1,0 +1,26 @@
+/* BEM */
+
+/* block */
+.some {
+}
+
+/* elements */
+.title {
+}
+
+/* modifiers */
+.disabled {
+}
+
+.selected {
+}
+
+.danger {
+  background-color: red;
+}
+.warning {
+  background-color: yellow;
+}
+.info {
+  background-color: green;
+}

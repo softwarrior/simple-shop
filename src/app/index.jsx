@@ -1,25 +1,22 @@
-import logo from "./logo.svg";
-import "./index.css";
+// import styles from './index.module.css';
 
-function App() {
+import { Icon } from "../shared/icon";
+
+const Simple = () => <div>Простой компонент</div>;
+
+const TwoChildren = ({ icon, children }) => (
+  <div>
+    <div>{icon}</div>
+    <div>{children}</div>
+  </div>
+);
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TwoChildren icon={<Icon name="sun" width="10rem" />}>
+        <Simple />
+      </TwoChildren>
+    </>
   );
-}
-
-export default App;
+};
