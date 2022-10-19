@@ -1,0 +1,17 @@
+/* BEM */
+
+/* block */
+.some {
+}
+
+/* elements */
+.title {
+}
+
+/* modifiers */
+.disabled {
+}
+
+.selected {
+  background-color: blueviolet;
+}

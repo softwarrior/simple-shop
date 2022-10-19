@@ -1,0 +1,15 @@
+/* BEM */
+
+/* block */
+.some {
+  background-color: brown;
+}
+
+/* elements */
+.some__title {
+}
+
+/* modifiers */
+.some_danger {
+  background-color: red;
+}
