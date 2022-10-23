@@ -1,0 +1,132 @@
+:root {
+  --color-button-white: #ffffff;
+  --color-button-black: #000000;
+  --color-button-blue: #459df5;
+  --color-button-dark-blue: #287ed5;
+  --color-button-medium-blue: #1e65a4;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.button_transparent,
+.button_transparent > .button__icon {
+  background-color: transparent;
+  color: var(--color-button-blue);
+  stroke: var(--color-button-blue);
+}
+
+.button_inactive,
+.button_inactive > .button__icon {
+  background-color: transparent;
+  color: var(--color-button-black);
+  stroke: var(--color-button-black);
+}
+
+.button__icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.button__text {
+  padding: 0;
+}
+
+.button_color_primary {
+  color: var(--color-button-white);
+  background-color: var(--color-button-blue);
+}
+
+.button_color_primary .button__icon {
+  fill: var(--color-button-white);
+  stroke: var(--color-button-white);
+}
+
+.button_color_reverse {
+  color: var(--color-button-blue);
+  background-color: transparent;
+}
+.button_color_reverse .button__icon {
+  fill: var(--color-button-blue);
+  stroke: none;
+}
+
+.button_color_secondary {
+  color: var(--color-button-black);
+  background-color: transparent;
+}
+.button_color_secondary .button__icon {
+  fill: var(--color-button-black);
+  stroke: none;
+}
+
+.button_small {
+  height: 1.5rem;
+  padding: 0.25rem 0;
+  gap: 0.25rem;
+}
+
+.button_small .button__icon:first-child {
+  margin-left: 0.5rem;
+}
+
+.button_small .button__icon:only-child {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.button_small .button__text:first-child {
+  margin-left: 0.5rem;
+}
+
+.button_small .button__text:last-child {
+  margin-right: 0.5rem;
+}
+
+.button_medium {
+  height: 2rem;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.button_medium .button__icon:first-child {
+  margin-left: 1rem;
+}
+
+.button_medium .button__icon:only-child {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.button_medium .button__text:first-child {
+  margin-left: 1rem;
+}
+
+.button_medium .button__text:last-child {
+  margin-right: 1rem;
+}
+
+.button:hover:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--color-button-dark-blue);
+}
+
+.button:active:enabled {
+  box-shadow: 0 0 0 0.0625rem var(--color-button-medium-blue);
+}
+
+.button_align {
+  justify-content: center;
+}

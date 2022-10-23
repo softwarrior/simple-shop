@@ -1,0 +1,141 @@
+:root {
+  --color-uikit-main: #e5e5e5;
+  --color-uikit-middle: #8055ff;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.8125rem;
+  background-color: var(--color-uikit-main);
+  line-height: 1rem;
+  padding: 5rem;
+}
+
+.uikit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.uikit-group-wrapper {
+  box-sizing: border-box;
+  border: 0.0625rem dashed var(--color-uikit-middle);
+  border-radius: 0.3125rem;
+  padding: 3rem;
+}
+
+.uikit-button-group {
+  width: 36rem;
+  height: 23.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3rem;
+}
+
+.uikit-button-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.uikit-input-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 22rem;
+  height: 25rem;
+  border: 0.0625rem dashed var(--color-input-stroke-middle);
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+}
+
+.uikit-searchbar-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 22rem;
+  height: 12rem;
+  border: 0.0625rem dashed var(--color-searchbar-stroke-middle);
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+}
+
+.uikit-checkbox-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.5rem;
+  height: 4rem;
+  border: 0.0625rem dashed var(--color-checkbox-stroke-middle);
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+}
+
+.uikit-radio-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.5rem;
+  height: 4rem;
+  border: 0.0625rem dashed var(--color-checkbox-stroke-middle);
+  box-sizing: border-box;
+  border-radius: 0.25rem;
+}
+
+/*.uikit-buttons-group {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  width: 36rem;*/
+/*  height: 23.5rem;*/
+/*  padding: 3rem;*/
+/*  border: 0.0625rem dashed var(--color-buttons-stroke-middle);*/
+/*  border-radius: 0.25rem;*/
+/*}*/
+
+/*.uikit-buttons-column {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  flex-basis: 33.3%;*/
+/*}*/
+
+/*.uikit-buttons-row {*/
+/*  display: flex;*/
+/*  margin-bottom: 3rem;*/
+/*}*/
+
+/*.uikit-buttons-row:last-child {*/
+/*  margin: 0;*/
+/*}*/
+
+.uikit-dropdowns-group {
+  display: flex;
+  flex-direction: column;
+  width: 42rem;
+  height: 32rem;
+  padding: 3rem;
+  border: 0.0625rem dashed var(--color-dropdowns-stroke-middle);
+  border-radius: 0.25rem;
+}
+
+.uikit-dropdowns-column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 3rem;
+}
+
+.uikit-dropdowns-column:last-child {
+  margin: 0;
+}
+
+.uikit-dropdowns-row {
+  display: flex;
+  margin-bottom: 6rem;
+}
+
+.uikit-dropdowns-row:last-child {
+  margin: 0;
+}

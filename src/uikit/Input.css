@@ -1,0 +1,120 @@
+:root {
+  --color-input-dark: #000;
+  --color-input-white: #fff;
+  --color-input-main: #e5e5e5;
+  --color-input-opacity: rgba(0, 0, 0, 0);
+  --color-input-light: #bad8f5;
+  --color-input-medium: #459df5;
+  --color-input-icorrect: #f53152;
+  --color-input-stroke-middle: #8055ff;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  font-size: 0.75rem;
+  margin-bottom: 4rem;
+}
+
+.input:last-child {
+  margin: 0;
+}
+
+.input__field-name {
+  display: flex;
+  margin-bottom: 0.5rem;
+  line-height: 1rem;
+  color: var(--color-input-dark);
+}
+
+.input__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
+  background-color: var(--color-input-white);
+  border: 0.0625rem solid;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+}
+
+.input__field:focus-within {
+  box-shadow: 0 0 0.5rem var(--color-input-light);
+}
+
+.input__field_empty {
+  border-color: var(--color-input-medium);
+}
+
+.input__field_incorrect {
+  border-color: var(--color-input-icorrect);
+}
+
+.input__field_incorrect:focus-within {
+  box-shadow: 0 0 0.25rem var(--color-input-icorrect);
+}
+
+.input__field_disabled {
+  border-color: var(--color-input-medium);
+  background-color: var(--color-input-light);
+  pointer-events: none;
+}
+
+.input__area {
+  display: flex;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  line-height: 1rem;
+  background-color: inherit;
+  outline: 0;
+  color: inherit;
+}
+
+.input__area::placeholder {
+  color: var(--color-input-light);
+}
+
+.input__field_incorrect {
+  color: var(--color-input-dark);
+}
+
+.input__field_disabled {
+  color: var(--color-input-dark);
+}
+
+.input__icon-area {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.input__button {
+  padding: 0 0 0 0.125rem;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.input__icon {
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  fill: inherit;
+}
+
+.input__icon_incorrect {
+  display: block;
+  stroke: var(--color-input-light);
+}
+
+.input__icon_incorrect:hover {
+  stroke: var(--color-input-medium);
+}
+
+.input__icon_disabled {
+  display: block;
+}

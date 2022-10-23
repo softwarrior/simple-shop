@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Reset.css" />
+    <link rel="stylesheet" href="Uikit.css" />
+    <link rel="stylesheet" href="Input.css" />
+    <link rel="stylesheet" href="Searchbar.css" />
+    <link rel="stylesheet" href="Checkbox.css" />
+    <link rel="stylesheet" href="Radio.css" />
+    <link rel="stylesheet" href="Button.css" />
+    <link rel="stylesheet" href="Dropdowns.css" />
+    <title>UIkit</title>
+  </head>
+  <body>
+    <!-- Контейнер для UIKit -->
+    <div class="uikit-container">
+      <!-- Поля ввода -->
+      <div class="uikit-input-group uikit-group-wrapper">
+        <label class="input">
+          <div class="input__field-name">Дата и время заказа</div>
+          <div class="input__field input__field_empty">
+            <input class="input__area" placeholder="Введите" />
+          </div>
+        </label>
+        <label class="input">
+          <div class="input__field-name">Дата и время заказа</div>
+          <div class="input__field input__field_incorrect">
+            <input
+              class="input__area"
+              placeholder="Введите"
+              value="20.08.2022"
+            />
+            <button class="input__button">
+              <svg class="input__icon input__icon_incorrect">
+                <use xlink:href="#incorrect"></use>
+              </svg>
+            </button>
+          </div>
+        </label>
+        <label class="input">
+          <div class="input__field-name">Дата и время заказа</div>
+          <div class="input__field input__field_disabled">
+            <input
+              class="input__area"
+              placeholder="Введите"
+              value="20.08.2022"
+              disabled
+            />
+            <button class="input__button">
+              <svg class="input__icon input__icon_disabled">
+                <use xlink:href="#disabled"></use>
+              </svg>
+            </button>
+          </div>
+        </label>
+      </div>
+      <!-- Панель поиска -->
+      <div class="uikit-searchbar-group uikit-group-wrapper">
+        <label class="searchbar">
+          <div class="searchbar__field searchbar__field_empty">
+            <div class="searchbar__search-area">
+              <svg class="searchbar__icon searchbar__icon_active">
+                <use xlink:href="#search"></use>
+              </svg>
+              <input
+                class="searchbar__area"
+                placeholder="Номер заказа или ФИО"
+              />
+            </div>
+            <button class="searchbar__button">
+              <svg class="searchbar__icon">
+                <use xlink:href="#incorrect"></use>
+              </svg>
+            </button>
+          </div>
+        </label>
+        <label class="searchbar">
+          <div class="searchbar__field searchbar__field_active">
+            <div class="searchbar__search-area">
+              <svg class="searchbar__icon searchbar__icon_active">
+                <use xlink:href="#search"></use>
+              </svg>
+              <input
+                class="searchbar__area"
+                placeholder="Номер заказа или ФИО"
+                value="150277"
+              />
+            </div>
+            <button class="searchbar__button">
+              <svg class="searchbar__icon searchbar__icon_incorrect">
+                <use xlink:href="#incorrect"></use>
+              </svg>
+            </button>
+          </div>
+        </label>
+      </div>
+      <!-- Чек бокс -->
+      <div class="uikit-checkbox-group uikit-group-wrapper">
+        <label class="checkbox">
+          <div class="checkbox__group">
+            <input type="checkbox" class="checkbox__area" />
+            <svg class="checkbox__icon">
+              <use xlink:href="#checkmark"></use>
+            </svg>
+          </div>
+        </label>
+        <label class="checkbox">
+          <div class="checkbox__group">
+            <input type="checkbox" class="checkbox__area" checked />
+            <svg class="checkbox__icon">
+              <use xlink:href="#checkmark"></use>
+            </svg>
+          </div>
+        </label>
+      </div>
+      <!-- Радио группа -->
+      <div class="uikit-radio-group uikit-group-wrapper">
+        <label class="radio">
+          <input
+            type="radio"
+            class="radio__area"
+            name="admin-panel-radio"
+            value="1"
+          />
+        </label>
+        <label class="radio">
+          <input
+            type="radio"
+            class="radio__area"
+            name="admin-panel-radio"
+            value="2"
+            checked
+          />
+        </label>
+      </div>
+      <!-- Кнопки -->
+      <div class="uikit-button-group uikit-group-wrapper">
+        <div class="uikit-button-section">
+          <button class="button button_medium button_color_primary">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_color_primary">
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_color_primary">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+          </button>
+        </div>
+        <div class="uikit-button-section">
+          <button class="button button_medium button_transparent">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_transparent">
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_transparent">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+          </button>
+        </div>
+        <div class="uikit-button-section">
+          <button class="button button_medium button_inactive">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_inactive">
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_medium button_inactive">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+          </button>
+        </div>
+        <div class="uikit-button-section">
+          <button class="button button_small button_color_primary">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_small button_color_primary">
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_small button_color_primary">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+          </button>
+        </div>
+        <div class="uikit-button-section">
+          <button class="button button_small button_transparent">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_small button_transparent">
+            <span class="button__text">Text here</span>
+          </button>
+          <button class="button button_small button_transparent">
+            <svg class="button__icon"><use xlink:href="#bin"></use></svg>
+          </button>
+        </div>
+      </div>
+      <!-- Выподающие списки -->
+      <div class="uikit-dropdowns-group uikit-group-wrapper">
+        <div class="uikit-dropdowns-row">
+          <div class="uikit-dropdowns-column">
+            <div class="dropdown dropdown_checkbox">
+              <ul class="dropdown__list">
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Новый</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Расчет</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Подтвержден</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Отложен</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Выполнен</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <div class="dropdown__checkbox-group">
+                      <input type="checkbox" class="dropdown__checkbox" />
+                      <svg class="dropdown__checkbox-icon">
+                        <use xlink:href="#checkmark"></use>
+                      </svg>
+                    </div>
+                    <span class="dropdown__item-title">Отменен</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="uikit-dropdowns-column">
+            <div class="dropdown dropdown_radio">
+              <ul class="dropdown__list">
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="new"
+                    />
+                    <span class="dropdown__item-title">Новый</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="payment"
+                    />
+                    <span class="dropdown__item-title">Расчет</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="confirmed"
+                    />
+                    <span class="dropdown__item-title">Подтвержден</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="postponed"
+                    />
+                    <span class="dropdown__item-title">Отложен</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="completed"
+                    />
+                    <span class="dropdown__item-title">Выполнен</span>
+                  </label>
+                </li>
+                <li class="dropdown__item">
+                  <label class="dropdown__control">
+                    <input
+                      type="radio"
+                      class="dropdown__radio"
+                      name="dropdown-status"
+                      value="canceled"
+                    />
+                    <span class="dropdown__item-title">Отменен</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="uikit-dropdowns-row">
+          <div class="uikit-dropdowns-column">
+            <div class="dropdown dropdown_to-page">
+              <label class="dropdown__control dropdown__control_to-page">
+                <span class="dropdown__title">Номер страницы</span>
+                <div class="input__field input__field_empty">
+                  <input class="input__area" placeholder="Введите номер" />
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="uikit-dropdowns-column">
+            <div class="dropdown dropdown_delete">
+              <span class="dropdown__title">Удалить n записей?</span>
+              <button
+                class="button button_small button_color_reverse button_align"
+              >
+                <span class="button__text">Удалить</span>
+              </button>
+              <button
+                class="button button_small button_color_primary button_align"
+              >
+                <span class="button__text">Отмена</span>
+              </button>
+            </div>
+          </div>
+          <div class="uikit-dropdowns-column">
+            <div class="dropdown dropdown_theme-switcher">
+              <span class="dropdown__title">Выберите тему</span>
+              <button
+                class="button button_small button_color_reverse button_align"
+              >
+                <svg class="button__icon button1_medium_icon">
+                  <use xlink:href="#sun"></use>
+                </svg>
+                <span class="button__text">Cветлая</span>
+              </button>
+              <button
+                class="button button_small button_color_primary button_align"
+              >
+                <svg class="button__icon button1_medium_icon">
+                  <use xlink:href="#moon"></use>
+                </svg>
+                <span class="button__text">Темная</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Картинки для UIKit -->
+    <svg
+      class="image"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+    >
+      <symbol id="incorrect" viewBox="0 0 16 16">
+        <path
+          id="incorrect"
+          fill="none"
+          d="M12.5 3.5L3.5 12.5M3.5 3.5L12.5 12.5"
+        />
+      </symbol>
+      <symbol id="disabled" viewBox="0 0 16 16">
+        <path
+          id="disabled"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M4 5C4 2.79086 5.79086 1 8 1C10.2091 1 12 2.79086 12 5V7C13.1046 7 14 7.89543 14 9V13C14 14.1046 13.1046 15 12 15H4C2.89543 15 2 14.1046 2 13V9C2 7.89543 2.89543 7 4 7V5ZM10 5V7H6V5C6 3.89543 6.89543 3 8 3C9.10457 3 10 3.89543 10 5Z"
+          stroke="none"
+        />
+        <path
+          d="M12 5C12 2.8 10.2 1 8 1C5.8 1 4 2.8 4 5L4 9H6V5C6 3.75 7 3 8 3C9 3 10 3.75 10 5V9H12V5Z"
+          stroke="none"
+        />
+      </symbol>
+      <symbol id="search" viewBox="0 0 16 16">
+        <path
+          fill="none"
+          d="M10.0355 10.0355C11.9882 8.08291 11.9882 4.91709 10.0355 2.96447C8.08291 1.01184 4.91709 1.01184 2.96447 2.96447C1.01184 4.91709 1.01184 8.08291 2.96447 10.0355C4.91709 11.9882 8.08291 11.9882 10.0355 10.0355ZM10.0355 10.0355L14 14M14 14L14.5 13.5L11.5 10.5M14 14L13.5 14.5L10.5 11.5"
+        />
+      </symbol>
+      <symbol id="component-icon" viewBox="0 0 26 26">
+        <rect
+          opacity="0.8"
+          x="0.272064"
+          y="13"
+          width="8"
+          height="8"
+          transform="rotate(-45 0.272064 13)"
+          fill="#8055FF"
+        />
+        <rect
+          opacity="0.8"
+          x="7.34314"
+          y="5.92894"
+          width="8"
+          height="8"
+          transform="rotate(-45 7.34314 5.92894)"
+          fill="#8055FF"
+        />
+        <rect
+          opacity="0.8"
+          x="14.4142"
+          y="13"
+          width="8"
+          height="8"
+          transform="rotate(-45 14.4142 13)"
+          fill="#8055FF"
+        />
+        <rect
+          opacity="0.8"
+          x="7.34314"
+          y="20.0711"
+          width="8"
+          height="8"
+          transform="rotate(-45 7.34314 20.0711)"
+          fill="#8055FF"
+        />
+      </symbol>
+      <symbol id="bin" viewbox="0 0 16 16">
+        <path
+          d="M2 3.5H3.5M14 3.5H12.5M5.5 3.5H10.5M5.5 3.5V2.5C5.5 1.94772 5.94772 1.5 6.5 1.5H9.5C10.0523 1.5 10.5 1.94772 10.5 2.5V3.5M5.5 3.5H3.5M10.5 3.5H12.5M3.5 3.5V13.5C3.5 14.0523 3.94772 14.5 4.5 14.5H11.5C12.0523 14.5 12.5 14.0523 12.5 13.5V3.5"
+          fill="none"
+          stroke-linecap="round"
+        />
+        <path d="M6.5 6V12M9.5 6V12" fill="none" stroke-linecap="round" />
+      </symbol>
+      <symbol id="sun" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="4" stroke="none" />
+        <path d="M15 9L16 8L15 7H13V9H15Z" stroke="none" />
+        <path d="M1 9L0 8L1 7H3V9H1Z" stroke="none" />
+        <path d="M7 15L8 16L9 15V13H7V15Z" stroke="none" />
+        <path d="M7 1L8 0L9 1V3H7V1Z" stroke="none" />
+        <path d="M12.5 14H14L14 12.5L12.5 11L11 12.5L12.5 14Z" stroke="none" />
+        <path d="M2 3.5L2 2L3.5 2L5 3.5L3.5 5L2 3.5Z" stroke="none" />
+        <path d="M3.5 14H2L2 12.5L3.5 11L5 12.5L3.5 14Z" stroke="none" />
+        <path d="M14 3.5V2L12.5 2L11 3.5L12.5 5L14 3.5Z" stroke="none" />
+      </symbol>
+      <symbol id="moon" viewBox="0 0 16 16">
+        <path
+          d="M8 15C12.0269 15 15.5 11.5021 15 7.5C14.7688 10.0468 12.6071 12 10 12C7.23858 12 5 9.76142 5 7C5 4.23858 7.23858 2 10 2C11 2 12 2.5 12 2.5C11 1.5 10 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15Z"
+          stroke="none"
+        />
+      </symbol>
+      <symbol id="search" viewBox="0 0 16 16">
+        <path
+          fill="none"
+          d="M10.0355 10.0355C11.9882 8.08291 11.9882 4.91709 10.0355 2.96447C8.08291 1.01184 4.91709 1.01184 2.96447 2.96447C1.01184 4.91709 1.01184 8.08291 2.96447 10.0355C4.91709 11.9882 8.08291 11.9882 10.0355 10.0355ZM10.0355 10.0355L14 14M14 14L14.5 13.5L11.5 10.5M14 14L13.5 14.5L10.5 11.5"
+        />
+      </symbol>
+      <symbol id="filter" viewBox="0 0 16 16">
+        <path d="M12 4H4V5.5L7 8.5V12L9 13V8.5L12 5.5V4Z" stroke="none" />
+      </symbol>
+      <symbol id="refresh" viewBox="0 0 16 16">
+        <path
+          d="M2.50251 7.5V8.5C2.50251 10.75 4.75251 13.5 8.00251 13.5C10 13.5 11.6187 12.5 12.6 11"
+          fill="none"
+        />
+        <path
+          d="M13.5 8.5V7.5C13.5 5.25 11.25 2.5 7.99997 2.5C6 2.5 4.38135 3.5 3.4 5"
+          fill="none"
+        />
+        <path d="M4.5 9.5L2.50254 7.5L0.752533 9.75" fill="none" />
+        <path d="M11.5 6.5L13.5 8.5L15.25 6.25" fill="none" />
+      </symbol>
+      <symbol id="v_arrow" viewBox="0 0 16 16">
+        <path d="M5 6H11V6.5L8.25 11H7.75L5 6.5V6Z" stroke="none" />
+      </symbol>
+      <symbol id="pencil" viewBox="0 0 16 16">
+        <path d="M6 14.5H15" fill="none" />
+        <path
+          d="M5 13L1.5 14.5L3 11M5 13L3 11M5 13L12 6M3 11L10 4M11 3L12.5 1.5L14.5 3.5L13 5M11 3L13 5M11 3L10 4M13 5L12 6M12 6L10 4"
+          fill="none"
+        />
+      </symbol>
+      <symbol id="checkmark" viewBox="0 0 16 16">
+        <path d="M7 10L4.5 6L3 7L7 14L14.5 3.5V3L13 2L7 10Z" stroke="none" />
+      </symbol>
+      <symbol id="dot" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="4" stroke="none" />
+      </symbol>
+      <symbol id="abort" viewBox="0 0 16 16">
+        <path d="M12.5 12.5L3.5 3.5" fill="none" />
+        <circle cx="8" cy="8" r="6.5" fill="none" />
+      </symbol>
+    </svg>
+  </body>
+</html>
