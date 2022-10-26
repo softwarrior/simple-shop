@@ -1,0 +1,122 @@
+._ {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 5.5rem;
+  width: 100%;
+  background-color: var(--color-filter);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+.filterRowInputWrap {
+  display: flex;
+  align-items: center;
+  width: 8.875rem;
+  height: 2rem;
+  border: 1px solid var(--color-medium);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  background-color: var(--color-primary);
+  margin-right: 0.25rem;
+}
+
+.filterRowInputWrap:focus-within {
+  box-shadow: 0 0 0.5rem var(--color-sensitive);
+}
+
+.filterRowInputsWrap > .filterRowInputWrap:last-child {
+  margin-right: 0rem;
+}
+
+.filterRowInputsWrap {
+  display: flex;
+  width: 18rem;
+  height: 2rem;
+}
+
+.filterRowInputsWrap > .filterRowInputWrap:last-child {
+  margin-right: 0rem;
+}
+
+.filterRowInputs {
+  display: flex;
+  flex-direction: column;
+  width: 18rem;
+  height: 4.5rem;
+  padding: 0.5rem 0rem;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin-right: 1rem;
+}
+
+.filterRowForm {
+  display: flex;
+}
+
+.filterRowForm .filterRowInputs:nth-child(2) {
+  position: relative;
+  width: 12rem;
+}
+
+.filterRowForm .filterRowInputs:nth-child(2) .filterRowInputWrap {
+  width: 12rem;
+}
+
+.filterRowForm .filterRowInputs:nth-child(3) {
+  width: 16rem;
+}
+
+.filterRowForm .filterRowInputs:nth-child(3) .filterRowInputWrap {
+  width: 7.875rem;
+}
+
+.filterRowInputTitleText {
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+}
+
+.filterRowFormButton {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 5.5rem;
+  height: 4.5rem;
+  padding: 2rem 0rem 0.5rem;
+}
+
+.filterRowFormButton .filterRowButton {
+  width: 5.5rem;
+  margin: 0rem;
+  color: var(--color-medium);
+}
+
+.filterRowButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 9.55rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterRowButton:hover {
+  box-shadow: 0 0.5rem 2rem 0 var(--color-sensitive);
+  transform: translateY(-0.1rem);
+}
+
+.filterRowButton:active {
+  box-shadow: none;
+  transform: translateY(0rem);
+}
+
+.disabled {
+  display: none;
+}

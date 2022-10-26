@@ -1,0 +1,33 @@
+.pageHeaderIcon {
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  fill: var(--color-medium);
+  margin-right: 0.5rem;
+}
+
+.filterRowIcon {
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+  fill: var(--color-primary);
+}
+
+.searchbarIcon {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  fill: inherit;
+  stroke: var(--color-medium);
+  margin-right: 0.5rem;
+}
+
+.filterRowInputIcon {
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  fill: var(--color-sensitive);
+  stroke: var(--color-sensitive);
+  flex: 0 0 auto;
+}
