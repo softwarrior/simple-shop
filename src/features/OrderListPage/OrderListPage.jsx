@@ -1,20 +1,21 @@
 import { useState, createContext, useMemo } from "react";
 
-import { Header } from "./components/Header";
-import { Filter } from "./components/Filter";
-// import { Table } from './components/Table'
+import { Header } from "./components/Header/Header";
+import { Filter } from "./components/Filter/Filter";
+import { Table } from "./components/Table/Table";
 
-import locale from "./OrderListPage.locale";
 import styles from "./OrderListPage.module.css";
 
 export const OrderListPageContext = createContext();
 
 export const VisibilityType = {
-  show: "show",
-  hide: "hide",
+  show: true,
+  hide: false,
 };
 
-export const OrderListPage = ({ children }) => {
+const filterDefaultValue = "Любой";
+
+export const OrderListPage = () => {
   const [filterState, setFilterState] = useState(VisibilityType.hide);
   const [filterDropdownState, setFilterDropdownState] = useState(
     VisibilityType.hide
@@ -22,81 +23,44 @@ export const OrderListPage = ({ children }) => {
   const [themeDropdownState, setThemeDropdownState] = useState(
     VisibilityType.hide
   );
-
-  const [filterDropdownStates, setFilterDropdownStates] = useState(
-    locale.dropdownItemTexts.map(() => false)
-  );
-  const [filterDropdownValue, setFilterDropdownValue] = useState(
-    locale.filterRowFifthDefaultValue
-  );
-
+  const [filterDropdownStates, setFilterDropdownStates] = useState([]);
+  const [filterDropdownValue, setFilterDropdownValue] =
+    useState(filterDefaultValue);
   const [filterReset, setFilterReset] = useState(false);
-
   const handleFilterState = () => {
-    switch (filterState) {
-      case VisibilityType.hide:
-        setFilterState(VisibilityType.show);
-        break;
-      case VisibilityType.show:
-        setFilterState(VisibilityType.hide);
-        break;
-      default:
-        break;
-    }
+    setFilterState(
+      filterState === VisibilityType.show
+        ? VisibilityType.hide
+        : VisibilityType.show
+    );
   };
-
   const handleFilterDropdownState = () => {
-    switch (filterDropdownState) {
-      case VisibilityType.hide:
-        setFilterDropdownState(VisibilityType.show);
-        break;
-      case VisibilityType.show:
-        setFilterDropdownState(VisibilityType.hide);
-        break;
-      default:
-        break;
-    }
+    setFilterDropdownState(
+      filterDropdownState === VisibilityType.show
+        ? VisibilityType.hide
+        : VisibilityType.show
+    );
   };
-
   const handleThemeDropdownState = () => {
-    switch (themeDropdownState) {
-      case VisibilityType.hide:
-        setThemeDropdownState(VisibilityType.show);
-        break;
-      case VisibilityType.show:
-        setThemeDropdownState(VisibilityType.hide);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleFilterDropdownStates = (position) => {
-    const updatedFilterDropdownStates = filterDropdownStates.map(
-      (item, index) => (index === position ? !item : item)
-    );
-    setFilterDropdownStates(updatedFilterDropdownStates);
-    const totalFilterDropdownValue = updatedFilterDropdownStates.reduce(
-      (sum, currentState, index) => {
-        if (currentState === true) {
-          return sum
-            ? sum + "," + locale.dropdownItemTexts[index]
-            : sum + locale.dropdownItemTexts[index];
-        }
-        return sum;
-      },
-      ""
-    );
-    setFilterDropdownValue(
-      totalFilterDropdownValue
-        ? totalFilterDropdownValue
-        : locale.filterRowFifthDefaultValue
+    setThemeDropdownState(
+      themeDropdownState === VisibilityType.show
+        ? VisibilityType.hide
+        : VisibilityType.show
     );
   };
-
+  const handleFilterDropdownStates = (value) => {
+    const dropdownStates = filterDropdownStates.includes(value)
+      ? filterDropdownStates.filter((item) => item !== value)
+      : [...filterDropdownStates, value];
+    const dropdownValue = dropdownStates.length
+      ? dropdownStates.join(", ")
+      : filterDefaultValue;
+    setFilterDropdownStates(dropdownStates);
+    setFilterDropdownValue(dropdownValue);
+  };
   const handleFilterReset = (flag) => {
-    setFilterDropdownStates(locale.dropdownItemTexts.map(() => false));
-    setFilterDropdownValue(locale.filterRowFifthDefaultValue);
+    setFilterDropdownStates([]);
+    setFilterDropdownValue(filterDefaultValue);
     setFilterReset(flag);
   };
 
@@ -126,12 +90,9 @@ export const OrderListPage = ({ children }) => {
   return (
     <OrderListPageContext.Provider value={value}>
       <div className={styles._}>
-        <div className={styles.content}>
-          <Header title={locale.headerTitle} />
-          <Filter />
-          {/* <Table/> */}
-          {children}
-        </div>
+        <Header title={"Список заказов"} />
+        <Filter />
+        <Table />
       </div>
     </OrderListPageContext.Provider>
   );

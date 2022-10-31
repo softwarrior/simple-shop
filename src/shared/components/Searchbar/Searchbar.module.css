@@ -1,0 +1,52 @@
+._ {
+  position: relative;
+}
+
+.area {
+  height: 2rem;
+  width: 20rem;
+  padding: 0.25rem 2rem 0.25rem 2rem;
+  border: 1px solid var(--color-medium);
+  border-radius: 0.25rem;
+  background-color: inherit;
+  outline: 0;
+  color: var(--color-secondary);
+}
+
+.area:focus {
+  box-shadow: 0 0 0.5rem var(--color-sensitive);
+}
+
+.area::placeholder {
+  color: var(--color-sensitive);
+}
+
+.iconFind {
+  position: absolute;
+  left: 0.59375rem;
+  top: 0.59375rem;
+  width: 0.8125rem;
+  height: 0.8125rem;
+  stroke: var(--color-medium);
+}
+
+.buttonDelete {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: none;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.iconDelete {
+  width: 1rem;
+  height: 1rem;
+  stroke: var(--color-sensitive);
+}

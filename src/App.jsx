@@ -1,4 +1,4 @@
-import { ThemeContextProvider } from "./features/ThemeContextProvider";
+import { ThemeContextProvider } from "./features/ThemeContextProvider/ThemeContextProvider";
 import { OrderListPage } from "./features/OrderListPage/OrderListPage";
 
 export const App = () => (

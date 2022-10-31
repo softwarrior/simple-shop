@@ -1,0 +1,56 @@
+._ {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 18rem;
+  height: 4.5rem;
+  padding: 0.5rem 0rem;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin-right: 1rem;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  width: 8.875rem;
+  height: 2rem;
+  border: 1px solid var(--color-medium);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  background-color: var(--color-primary);
+  margin-right: 0.25rem;
+}
+.inputWrap:focus-within {
+  box-shadow: 0 0 0.5rem var(--color-sensitive);
+}
+
+.form .inputs:nth-child(2) {
+  position: relative;
+  width: 12rem;
+}
+
+.form .inputs:nth-child(2) .inputWrap {
+  width: 12rem;
+}
+
+.form .inputs:nth-child(3) {
+  width: 16rem;
+}
+
+.form .inputs:nth-child(3) .inputWrap {
+  width: 7.875rem;
+}
+
+.hidden {
+  display: none;
+}

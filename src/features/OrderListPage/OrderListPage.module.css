@@ -1,9 +1,9 @@
 ._ {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   height: 100vh;
-  padding: 2rem 3rem 0rem 3rem;
-}
-
-.content {
-  border-color: var(--color-filter);
-  min-width: 56rem;
+  padding: 2rem 3rem 0 3rem;
+  box-sizing: border-box;
+  line-height: 1rem;
 }

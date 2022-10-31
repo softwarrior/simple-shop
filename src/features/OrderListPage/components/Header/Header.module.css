@@ -1,0 +1,14 @@
+._ {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+}
+
+.span {
+  font-weight: bold;
+  font-size: 1.625rem;
+  line-height: 2rem;
+  letter-spacing: -0.0125rem;
+  color: var(--color-secondary);
+}
