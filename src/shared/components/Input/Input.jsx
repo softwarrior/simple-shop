@@ -7,7 +7,6 @@ const noop = () => {};
 import styles from "./Input.module.css";
 
 export const InputStyle = {
-  dropdown: "dropdown",
   empty: "empty",
   correct: "correct",
   incorrect: "incorrect",
@@ -16,13 +15,15 @@ export const InputStyle = {
 
 export const Input = ({
   inputStyle,
-  leftText = null,
+  title = null,
+  prefix,
   placeholder,
-  value = null,
+  value,
   onChange = noop,
   onClick = noop,
+  onButtonClick = noop,
   className,
-  children,
+  iconType = null,
   ...props
 }) => {
   const fieldClassNames = classnames(styles.field, {
@@ -30,58 +31,47 @@ export const Input = ({
     [styles.fieldIncorrect]: inputStyle === InputStyle.incorrect,
     [styles.fieldCorrect]: inputStyle === InputStyle.correct,
     [styles.fieldDisabled]: inputStyle === InputStyle.disabled,
-    [styles.fieldDropdown]: inputStyle === InputStyle.dropdown,
   });
-  const labelClassNames = classnames(styles._, className);
+
+  const classNames = classnames(styles._, className);
+
   const buttonClassNames = classnames(styles.button, {
     [styles.buttonDisabled]: inputStyle === InputStyle.empty,
   });
+
   let iconClassNames = classnames(styles.icon, {
     [styles.iconCorrect]: inputStyle === InputStyle.correct,
-    [styles.iconDropdown]: inputStyle === InputStyle.dropdown,
     [styles.iconIncorrect]: inputStyle === InputStyle.incorrect,
     [styles.iconDisabled]: inputStyle === InputStyle.disabled,
   });
 
-  let iconType = null;
-  switch (inputStyle) {
-    case InputStyle.dropdown:
-      iconType = IconType.v_arrow;
-      break;
-    case InputStyle.empty:
-      iconType = null;
-      break;
-    case InputStyle.incorrect:
-      iconType = IconType.x_medium;
-      break;
-    case InputStyle.correct:
-      iconType = IconType.x_medium;
-      break;
-    case InputStyle.disabled:
-      iconType = IconType.locked;
-      break;
-  }
-
-  const inputProps = {
-    className: styles.area,
-    placeholder,
-    value,
-    onClick,
-    onChange,
-    disabled: inputStyle === InputStyle.disabled,
-    props,
-  };
-  if (!value) delete inputProps.value;
+  iconType = iconType
+    ? iconType
+    : inputStyle === InputStyle.empty
+    ? null
+    : inputStyle === InputStyle.disabled
+    ? IconType.locked
+    : IconType.x_medium;
 
   return (
-    <label className={labelClassNames}>
-      <div className={styles.fieldName}>{children}</div>
+    <label className={classNames}>
+      {!!title && <div className={styles.fieldName}>{title}</div>}
       <div className={fieldClassNames}>
-        {!!leftText && <span className={styles.leftText}>{leftText}</span>}
-        <input {...inputProps} />
-        <button className={buttonClassNames} onClick={onClick}>
-          <Icon className={iconClassNames} iconType={iconType}></Icon>
-        </button>
+        {!!prefix && <div className={styles.prefix}>{prefix}</div>}
+        <input
+          className={styles.area}
+          placeholder={placeholder}
+          value={value === null ? "" : value}
+          onClick={onClick}
+          onChange={onChange}
+          disabled={inputStyle === InputStyle.disabled}
+          {...props}
+        />
+        {!!iconType && (
+          <button className={buttonClassNames} onClick={onButtonClick}>
+            <Icon className={iconClassNames} iconType={iconType}></Icon>
+          </button>
+        )}
       </div>
     </label>
   );

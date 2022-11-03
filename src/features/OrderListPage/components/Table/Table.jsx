@@ -1,1 +1,3 @@
-export const Table = ({ children }) => <div>{children}</div>;
+import styles from "./Table.module.css";
+
+export const Table = () => <div className={styles._}></div>;

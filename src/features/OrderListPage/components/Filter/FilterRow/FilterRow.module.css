@@ -23,6 +23,7 @@
   display: flex;
   gap: 0.25rem;
   width: 17%;
+  align-items: flex-end;
 }
 
 .filtersButton {

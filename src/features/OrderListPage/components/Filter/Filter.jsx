@@ -3,12 +3,11 @@ import { FilterRow } from "./FilterRow/FilterRow";
 
 import styles from "./Filter.module.css";
 
-export const Filter = ({ children }) => {
+export const Filter = () => {
   return (
     <div className={styles._}>
       <FilterSearchRow />
       <FilterRow />
-      {children}
     </div>
   );
 };

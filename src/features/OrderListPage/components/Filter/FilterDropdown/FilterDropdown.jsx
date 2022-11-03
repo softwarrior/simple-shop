@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import classnames from "classnames";
 
-import { DropdownItem } from "../../../../../shared/components/DropdownItem/DropdownItem";
+import { Checkbox } from "../../../../../shared/components";
 
-import { OrderListPageContext, VisibilityType } from "../../../OrderListPage";
+import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterDropdown.module.css";
 
 const DropdownStates = {
@@ -16,11 +16,11 @@ const DropdownStates = {
 };
 
 export const FilterDropdown = () => {
-  const { filterDropdownState, filterDropdownStates, onFilterDropdownStates } =
+  const { isFilterDropdownOpen, filterDropdownStates, onFilterDropdownStates } =
     useContext(OrderListPageContext);
 
   const classNames = classnames(styles._, {
-    [styles.disabled]: filterDropdownState === VisibilityType.hide,
+    [styles.disabled]: !isFilterDropdownOpen,
   });
 
   return (
@@ -28,12 +28,13 @@ export const FilterDropdown = () => {
       <div className={styles.form}>
         <ul className={styles.list}>
           {Object.entries(DropdownStates).map(([key, value]) => (
-            <DropdownItem
-              key={key}
-              itemText={value}
-              onChange={() => onFilterDropdownStates(value)}
-              checked={filterDropdownStates.includes(value)}
-            />
+            <li key={key} className={styles.item}>
+              <Checkbox
+                title={value}
+                onChange={() => onFilterDropdownStates(value)}
+                checked={filterDropdownStates.includes(value)}
+              />
+            </li>
           ))}
         </ul>
       </div>

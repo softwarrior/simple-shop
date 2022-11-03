@@ -5,33 +5,42 @@ import {
   Button,
   ButtonSize,
   ButtonStyle,
+  Icon,
   IconType,
-  Searchbar,
+  Input,
+  InputStyle,
 } from "../../../../../shared/components";
 
 import { FilterLoader } from "../FilterLoader/FilterLoader";
 
-import { OrderListPageContext, VisibilityType } from "../../../OrderListPage";
+import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterSearchRow.module.css";
 
 export const FilterSearchRow = () => {
-  const { filterState, onFilterState, onFilterReset } =
+  const { isFilterOpen, onFilterOpen, onFilterReset } =
     useContext(OrderListPageContext);
 
   let resetClassNames = classnames({
-    [styles.hidden]: filterState === VisibilityType.hide,
+    [styles.hidden]: !isFilterOpen,
   });
 
   return (
     <div className={styles._}>
       <div className={styles.form}>
-        <Searchbar placeholder="Номер заказа или ФИО" />
+        <Input
+          className={styles.search}
+          placeholder={"Номер заказа или ФИО"}
+          prefix={
+            <Icon className={styles.searchIcon} iconType={IconType.search} />
+          }
+          inputStyle={InputStyle.correct}
+        />
         <Button
-          buttonStyle={ButtonStyle.primary}
+          buttonStyle={isFilterOpen ? ButtonStyle.primary : ButtonStyle.reverse}
           buttonSize={ButtonSize.medium}
           iconType={IconType.filter}
           isAlign={true}
-          onClick={onFilterState}
+          onClick={onFilterOpen}
         >
           Фильтры
         </Button>

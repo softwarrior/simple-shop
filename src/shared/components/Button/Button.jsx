@@ -16,7 +16,6 @@ export const ButtonStyle = {
   transparent: "transparent",
   inactive: "inactive",
   danger: "danger",
-  hidden: "hidden",
 };
 
 const noop = () => {};
@@ -41,7 +40,6 @@ export const Button = ({
       [styles.buttonTransparent]: buttonStyle === ButtonStyle.transparent,
       [styles.buttonInactive]: buttonStyle === ButtonStyle.inactive,
       [styles.buttonDanger]: buttonStyle === ButtonStyle.danger,
-      [styles.buttonHidden]: buttonStyle === ButtonStyle.hidden,
       [styles.buttonSmall]: buttonSize === ButtonSize.small,
       [styles.buttonMedium]: buttonSize === ButtonSize.medium,
     },

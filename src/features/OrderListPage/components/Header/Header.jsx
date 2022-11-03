@@ -7,7 +7,7 @@ import {
   IconType,
 } from "../../../../shared/components";
 
-import { FilterThemeDropdown } from "../Filter/FilterThemeDropdown/FilterThemeDropdown";
+import { HeaderThemeDropdown } from "./HeaderThemeDropdown/HeaderThemeDropdown";
 import {
   ThemeContext,
   ThemeType,
@@ -17,7 +17,8 @@ import { OrderListPageContext } from "../../OrderListPage";
 import styles from "./Header.module.css";
 
 export const Header = ({ title }) => {
-  const { onThemeDropdownState } = useContext(OrderListPageContext);
+  const { isThemeDropdownOpen, onThemeDropdownOpen } =
+    useContext(OrderListPageContext);
   const { theme } = useContext(ThemeContext);
 
   let buttonText = theme == ThemeType.dark ? "Темная тема" : "Светлая тема";
@@ -27,15 +28,17 @@ export const Header = ({ title }) => {
     <div className={styles._}>
       <span className={styles.span}>{title}</span>
       <Button
-        buttonStyle={ButtonStyle.reverse}
+        buttonStyle={
+          isThemeDropdownOpen ? ButtonStyle.primary : ButtonStyle.reverse
+        }
         buttonSize={ButtonSize.medium}
         iconType={iconType}
         isAlign={true}
-        onClick={onThemeDropdownState}
+        onClick={onThemeDropdownOpen}
       >
         {buttonText}
       </Button>
-      <FilterThemeDropdown />
+      <HeaderThemeDropdown />
     </div>
   );
 };

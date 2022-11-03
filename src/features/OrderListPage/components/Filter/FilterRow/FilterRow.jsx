@@ -5,70 +5,64 @@ import {
   Button,
   ButtonSize,
   ButtonStyle,
+  IconType,
   Input,
   InputStyle,
 } from "../../../../../shared/components";
-// import { Input, InputStyle } from "../../../shared/components/Input";
 
 import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
 
-import { OrderListPageContext, VisibilityType } from "../../../OrderListPage";
+import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterRow.module.css";
 
 export const FilterRow = () => {
-  const { filterState, onFilterDropdownState, filterDropdownValue } =
+  const { isFilterOpen, onFilterDropdownOpen, filterDropdownValue } =
     useContext(OrderListPageContext);
 
   const classNames = classnames(styles._, {
-    [styles.hidden]: filterState === VisibilityType.hide,
+    [styles.hidden]: !isFilterOpen,
   });
 
   return (
     <div className={classNames}>
       <div className={styles.filterDate}>
         <Input
-          leftText="c"
+          title={"Дата оформления"}
+          prefix={"c"}
           inputStyle={InputStyle.correct}
-          placeholder="dd.mm.dddd"
-        >
-          Дата оформления
-        </Input>
+          placeholder="dd.mm.yyyy"
+        />
         <Input
-          leftText="по"
+          prefix={"по"}
           inputStyle={InputStyle.empty}
-          placeholder="dd.mm.dddd"
-        >
-          &ensp;
-        </Input>
+          placeholder="dd.mm.yyyy"
+        />
       </div>
       <div className={styles.filterStatus}>
         <Input
-          inputStyle={InputStyle.dropdown}
+          title={"Статус заказа"}
           value={filterDropdownValue}
-          onClick={onFilterDropdownState}
+          onClick={onFilterDropdownOpen}
+          onButtonClick={onFilterDropdownOpen}
+          inputStyle={InputStyle.correct}
+          iconType={IconType.v_arrow}
           readOnly={true}
-        >
-          Статус заказа
-        </Input>
+        />
         <FilterDropdown />
       </div>
       <div className={styles.filterPrice}>
         <Input
-          type="text"
-          leftText="до"
+          title={"Сумма заказа"}
+          prefix={"от"}
           inputStyle={InputStyle.empty}
           placeholder="₽"
-        >
-          Сумма заказ
-        </Input>
+        />
         <Input
           type="text"
-          leftText="до"
+          prefix={"до"}
           inputStyle={InputStyle.empty}
           placeholder="₽"
-        >
-          &ensp;
-        </Input>
+        />
       </div>
       <Button
         className={styles.filtersButton}
