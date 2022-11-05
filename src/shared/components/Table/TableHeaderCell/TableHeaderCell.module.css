@@ -1,0 +1,14 @@
+.tableHeaderIcon {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  fill: var(--color-primary);
+  cursor: pointer;
+}
+
+.tableHeaderText {
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin-right: 0.25rem;
+  color: var(--color-primary);
+}

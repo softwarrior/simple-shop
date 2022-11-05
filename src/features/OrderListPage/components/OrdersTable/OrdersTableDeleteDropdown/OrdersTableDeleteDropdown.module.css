@@ -18,6 +18,9 @@
 .title {
   font-size: 0.8125rem;
   line-height: 1rem;
-  margin-bottom: 0.75rem;
   color: var(--color-secondary);
+}
+
+.disabled {
+  display: none;
 }

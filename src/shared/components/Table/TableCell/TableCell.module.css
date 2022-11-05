@@ -1,0 +1,14 @@
+.icon {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  fill: var(--color-warning);
+  stroke: var(--color-warning);
+  margin-right: 0.25rem;
+}
+
+.cellText {
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: var(--color-secondary);
+}
