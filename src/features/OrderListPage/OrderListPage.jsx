@@ -2,89 +2,118 @@ import { useState, createContext, useMemo } from "react";
 
 import { Header } from "./components/Header/Header";
 import { Filter } from "./components/Filter/Filter";
-import { Table } from "./components/Table/Table";
 
 import styles from "./OrderListPage.module.css";
 
 export const OrderListPageContext = createContext();
 
-export const VisibilityType = {
-  show: true,
-  hide: false,
-};
-
 const filterDefaultValue = "Любой";
 
 export const OrderListPage = () => {
-  const [filterState, setFilterState] = useState(VisibilityType.hide);
-  const [filterDropdownState, setFilterDropdownState] = useState(
-    VisibilityType.hide
-  );
-  const [themeDropdownState, setThemeDropdownState] = useState(
-    VisibilityType.hide
-  );
+  const [isFilterOpen, setFilterOpen] = useState(false);
+  const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
+  const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
   const [filterDropdownStates, setFilterDropdownStates] = useState([]);
-  const [filterDropdownValue, setFilterDropdownValue] =
-    useState(filterDefaultValue);
-  const [filterReset, setFilterReset] = useState(false);
-  const handleFilterState = () => {
-    setFilterState(
-      filterState === VisibilityType.show
-        ? VisibilityType.hide
-        : VisibilityType.show
-    );
-  };
-  const handleFilterDropdownState = () => {
-    setFilterDropdownState(
-      filterDropdownState === VisibilityType.show
-        ? VisibilityType.hide
-        : VisibilityType.show
-    );
-  };
-  const handleThemeDropdownState = () => {
-    setThemeDropdownState(
-      themeDropdownState === VisibilityType.show
-        ? VisibilityType.hide
-        : VisibilityType.show
-    );
-  };
+  const [, setFilterDropdownValue] = useState(filterDefaultValue);
+  const [isFilterReset, setFilterReset] = useState(false);
+  const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [dateFromValue, setDateFromValue] = useState("");
+  const [dateToValue, setDateToValue] = useState("");
+  const [sumFromValue, setSumFromValue] = useState("");
+  const [sumToValue, setSumToValue] = useState("");
+
+  const createHandleChange =
+    (setter) =>
+    ({ target: { value } }) =>
+      setter(value);
+  const createHandleReset = (setter) => () => setter("");
+
+  const handleSearchChange = createHandleChange(setSearchValue);
+  const handleDateFromChange = createHandleChange(setDateFromValue);
+  const handleDateToChange = createHandleChange(setDateToValue);
+  const handleSumFromChange = createHandleChange(setSumFromValue);
+  const handleSumToChange = createHandleChange(setSumToValue);
+
+  const handleSearchReset = createHandleReset(setSearchValue);
+  const handleDateFromReset = createHandleReset(setDateFromValue);
+  const handleDateToReset = createHandleReset(setDateToValue);
+  const handleSumFromReset = createHandleReset(setSumFromValue);
+  const handleSumToReset = createHandleReset(setSumToValue);
+
+  const handleFilterOpen = () => setFilterOpen(!isFilterOpen);
+  const handleFilterDropdownOpen = () =>
+    setFilterDropdownOpen(!isFilterDropdownOpen);
+  const handleThemeDropdownOpen = () =>
+    setThemeDropdownOpen(!isThemeDropdownOpen);
+  const handleDeleteDropdownOpen = () =>
+    setDeleteDropdownOpen(!isDeleteDropdownOpen);
+
   const handleFilterDropdownStates = (value) => {
     const dropdownStates = filterDropdownStates.includes(value)
       ? filterDropdownStates.filter((item) => item !== value)
       : [...filterDropdownStates, value];
-    const dropdownValue = dropdownStates.length
-      ? dropdownStates.join(", ")
-      : filterDefaultValue;
     setFilterDropdownStates(dropdownStates);
-    setFilterDropdownValue(dropdownValue);
   };
-  const handleFilterReset = (flag) => {
+
+  const filterDropdownValue = useMemo(
+    () =>
+      filterDropdownStates.length == 0 || filterDropdownStates.length == 6
+        ? filterDefaultValue
+        : filterDropdownStates.join(", "),
+    [filterDropdownStates]
+  );
+
+  const handleFilterReset = () => {
     setFilterDropdownStates([]);
     setFilterDropdownValue(filterDefaultValue);
-    setFilterReset(flag);
+    setFilterReset(false);
   };
 
   const value = useMemo(() => {
     return {
-      filterState,
-      onFilterState: handleFilterState,
-      filterDropdownState,
-      onFilterDropdownState: handleFilterDropdownState,
-      themeDropdownState,
-      onThemeDropdownState: handleThemeDropdownState,
+      isFilterOpen,
+      onFilterOpen: handleFilterOpen,
+      isFilterDropdownOpen,
+      onFilterDropdownOpen: handleFilterDropdownOpen,
+      isThemeDropdownOpen,
+      onThemeDropdownOpen: handleThemeDropdownOpen,
       filterDropdownStates,
       onFilterDropdownStates: handleFilterDropdownStates,
       filterDropdownValue,
-      filterReset,
+      isFilterReset,
       onFilterReset: handleFilterReset,
+      searchValue,
+      dateFromValue,
+      dateToValue,
+      sumFromValue,
+      sumToValue,
+      onSearchChange: handleSearchChange,
+      onDateFromChange: handleDateFromChange,
+      onDateToChange: handleDateToChange,
+      onSumFromChange: handleSumFromChange,
+      onSumToChange: handleSumToChange,
+      onSearchReset: handleSearchReset,
+      onDateFromReset: handleDateFromReset,
+      onDateToReset: handleDateToReset,
+      onSumFromReset: handleSumFromReset,
+      onSumToReset: handleSumToReset,
+      isDeleteDropdownOpen,
+      onDeleteDropdownOpen: handleDeleteDropdownOpen,
     };
   }, [
-    filterState,
-    filterDropdownState,
-    themeDropdownState,
+    isFilterOpen,
+    isFilterDropdownOpen,
+    isThemeDropdownOpen,
     filterDropdownStates,
     filterDropdownValue,
-    filterReset,
+    isFilterReset,
+    searchValue,
+    dateFromValue,
+    dateToValue,
+    sumFromValue,
+    sumToValue,
+    isDeleteDropdownOpen,
   ]);
 
   return (
@@ -92,7 +121,6 @@ export const OrderListPage = () => {
       <div className={styles._}>
         <Header title={"Список заказов"} />
         <Filter />
-        <Table />
       </div>
     </OrderListPageContext.Provider>
   );

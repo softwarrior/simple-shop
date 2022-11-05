@@ -33,7 +33,7 @@
 
 .checkbox:checked {
   background-color: var(--color-medium);
-  border-color: var(--color-medium);
+  border-color: var(--color-sensitive);
 }
 
 .checkbox:active,

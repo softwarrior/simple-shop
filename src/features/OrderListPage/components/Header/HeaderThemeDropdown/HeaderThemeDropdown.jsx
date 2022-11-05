@@ -8,28 +8,30 @@ import {
   IconType,
 } from "../../../../../shared/components";
 
-import { OrderListPageContext, VisibilityType } from "../../../OrderListPage";
+import { OrderListPageContext } from "../../../OrderListPage";
 import {
   ThemeContext,
   ThemeType,
 } from "../../../../ThemeContextProvider/ThemeContextProvider";
 
-import styles from "./FilterThemeDropdown.module.css";
+import styles from "./HeaderThemeDropdown.module.css";
 
-export const FilterThemeDropdown = () => {
-  const { themeDropdownState } = useContext(OrderListPageContext);
-  const { onTheme } = useContext(ThemeContext);
+export const HeaderThemeDropdown = () => {
+  const { isThemeDropdownOpen } = useContext(OrderListPageContext);
+  const { theme, onTheme } = useContext(ThemeContext);
 
   const classNames = classnames(styles._, {
-    [styles.disabled]: themeDropdownState === VisibilityType.hide,
+    [styles.disabled]: !isThemeDropdownOpen,
   });
 
   return (
     <div className={classNames}>
       <span className={styles.title}>Выберите тему</span>
       <Button
-        buttonStyle={ButtonStyle.reverse}
-        buttonSize={ButtonSize.small}
+        buttonStyle={
+          theme === ThemeType.light ? ButtonStyle.primary : ButtonStyle.reverse
+        }
+        size={ButtonSize.small}
         iconType={IconType.sun}
         isAlign={true}
         onClick={() => onTheme(ThemeType.light)}
@@ -37,8 +39,10 @@ export const FilterThemeDropdown = () => {
         Cветлая
       </Button>
       <Button
-        buttonStyle={ButtonStyle.primary}
-        buttonSize={ButtonSize.small}
+        buttonStyle={
+          theme == ThemeType.dark ? ButtonStyle.primary : ButtonStyle.reverse
+        }
+        size={ButtonSize.small}
         iconType={IconType.moon}
         isAlign={true}
         onClick={() => onTheme(ThemeType.dark)}

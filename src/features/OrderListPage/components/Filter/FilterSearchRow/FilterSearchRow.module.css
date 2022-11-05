@@ -54,3 +54,11 @@
 .hidden {
   display: none;
 }
+
+.search {
+  width: 20rem;
+}
+
+.searchIcon {
+  stroke: var(--color-medium);
+}
