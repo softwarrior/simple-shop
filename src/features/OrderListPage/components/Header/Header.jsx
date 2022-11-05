@@ -31,7 +31,7 @@ export const Header = ({ title }) => {
         buttonStyle={
           isThemeDropdownOpen ? ButtonStyle.primary : ButtonStyle.reverse
         }
-        buttonSize={ButtonSize.medium}
+        size={ButtonSize.medium}
         iconType={iconType}
         isAlign={true}
         onClick={onThemeDropdownOpen}

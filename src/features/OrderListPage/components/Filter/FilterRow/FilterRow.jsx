@@ -7,7 +7,6 @@ import {
   ButtonStyle,
   IconType,
   Input,
-  InputStyle,
 } from "../../../../../shared/components";
 
 import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
@@ -16,8 +15,23 @@ import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterRow.module.css";
 
 export const FilterRow = () => {
-  const { isFilterOpen, onFilterDropdownOpen, filterDropdownValue } =
-    useContext(OrderListPageContext);
+  const {
+    isFilterOpen,
+    onFilterDropdownOpen,
+    filterDropdownValue,
+    dateFromValue,
+    dateToValue,
+    sumFromValue,
+    sumToValue,
+    onDateFromChange,
+    onDateToChange,
+    onSumFromChange,
+    onSumToChange,
+    onDateFromReset,
+    onDateToReset,
+    onSumFromReset,
+    onSumToReset,
+  } = useContext(OrderListPageContext);
 
   const classNames = classnames(styles._, {
     [styles.hidden]: !isFilterOpen,
@@ -29,13 +43,17 @@ export const FilterRow = () => {
         <Input
           title={"Дата оформления"}
           prefix={"c"}
-          inputStyle={InputStyle.correct}
           placeholder="dd.mm.yyyy"
+          value={dateFromValue}
+          onChange={onDateFromChange}
+          onReset={onDateFromReset}
         />
         <Input
           prefix={"по"}
-          inputStyle={InputStyle.empty}
           placeholder="dd.mm.yyyy"
+          value={dateToValue}
+          onChange={onDateToChange}
+          onReset={onDateToReset}
         />
       </div>
       <div className={styles.filterStatus}>
@@ -43,8 +61,7 @@ export const FilterRow = () => {
           title={"Статус заказа"}
           value={filterDropdownValue}
           onClick={onFilterDropdownOpen}
-          onButtonClick={onFilterDropdownOpen}
-          inputStyle={InputStyle.correct}
+          onReset={onFilterDropdownOpen}
           iconType={IconType.v_arrow}
           readOnly={true}
         />
@@ -54,20 +71,24 @@ export const FilterRow = () => {
         <Input
           title={"Сумма заказа"}
           prefix={"от"}
-          inputStyle={InputStyle.empty}
           placeholder="₽"
+          value={sumFromValue}
+          onChange={onSumFromChange}
+          onReset={onSumFromReset}
         />
         <Input
           type="text"
           prefix={"до"}
-          inputStyle={InputStyle.empty}
           placeholder="₽"
+          value={sumToValue}
+          onChange={onSumToChange}
+          onReset={onSumToReset}
         />
       </div>
       <Button
         className={styles.filtersButton}
         buttonStyle={ButtonStyle.transparent}
-        buttonSize={ButtonSize.medium}
+        size={ButtonSize.medium}
         isAlign={true}
       >
         Применить

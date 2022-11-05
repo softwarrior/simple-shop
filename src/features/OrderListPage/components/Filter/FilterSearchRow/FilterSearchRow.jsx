@@ -8,7 +8,6 @@ import {
   Icon,
   IconType,
   Input,
-  InputStyle,
 } from "../../../../../shared/components";
 
 import { FilterLoader } from "../FilterLoader/FilterLoader";
@@ -17,8 +16,14 @@ import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterSearchRow.module.css";
 
 export const FilterSearchRow = () => {
-  const { isFilterOpen, onFilterOpen, onFilterReset } =
-    useContext(OrderListPageContext);
+  const {
+    isFilterOpen,
+    onFilterOpen,
+    onFilterReset,
+    searchValue,
+    onSearchChange,
+    onSearchReset,
+  } = useContext(OrderListPageContext);
 
   let resetClassNames = classnames({
     [styles.hidden]: !isFilterOpen,
@@ -33,11 +38,13 @@ export const FilterSearchRow = () => {
           prefix={
             <Icon className={styles.searchIcon} iconType={IconType.search} />
           }
-          inputStyle={InputStyle.correct}
+          value={searchValue}
+          onChange={onSearchChange}
+          onReset={onSearchReset}
         />
         <Button
           buttonStyle={isFilterOpen ? ButtonStyle.primary : ButtonStyle.reverse}
-          buttonSize={ButtonSize.medium}
+          size={ButtonSize.medium}
           iconType={IconType.filter}
           isAlign={true}
           onClick={onFilterOpen}
@@ -47,7 +54,7 @@ export const FilterSearchRow = () => {
         <Button
           className={resetClassNames}
           buttonStyle={ButtonStyle.transparent}
-          buttonSize={ButtonSize.medium}
+          size={ButtonSize.medium}
           isAlign={true}
           onClick={onFilterReset}
         >

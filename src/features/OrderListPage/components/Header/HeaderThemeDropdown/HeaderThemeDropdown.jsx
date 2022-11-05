@@ -31,7 +31,7 @@ export const HeaderThemeDropdown = () => {
         buttonStyle={
           theme === ThemeType.light ? ButtonStyle.primary : ButtonStyle.reverse
         }
-        buttonSize={ButtonSize.small}
+        size={ButtonSize.small}
         iconType={IconType.sun}
         isAlign={true}
         onClick={() => onTheme(ThemeType.light)}
@@ -42,7 +42,7 @@ export const HeaderThemeDropdown = () => {
         buttonStyle={
           theme == ThemeType.dark ? ButtonStyle.primary : ButtonStyle.reverse
         }
-        buttonSize={ButtonSize.small}
+        size={ButtonSize.small}
         iconType={IconType.moon}
         isAlign={true}
         onClick={() => onTheme(ThemeType.dark)}

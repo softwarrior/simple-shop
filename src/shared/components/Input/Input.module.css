@@ -31,10 +31,6 @@
   box-shadow: 0 0 0.5rem var(--color-sensitive);
 }
 
-.fieldEmpty {
-  border-color: var(--color-medium);
-}
-
 .fieldCorrect {
   border-color: var(--color-medium);
 }

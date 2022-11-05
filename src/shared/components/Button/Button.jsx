@@ -23,7 +23,7 @@ const noop = () => {};
 export const Button = ({
   isAlign = false,
   buttonStyle = ButtonStyle.primary,
-  buttonSize = ButtonSize.medium,
+  size = ButtonSize.medium,
   iconType = null,
   onClick = noop,
   className,
@@ -40,8 +40,8 @@ export const Button = ({
       [styles.buttonTransparent]: buttonStyle === ButtonStyle.transparent,
       [styles.buttonInactive]: buttonStyle === ButtonStyle.inactive,
       [styles.buttonDanger]: buttonStyle === ButtonStyle.danger,
-      [styles.buttonSmall]: buttonSize === ButtonSize.small,
-      [styles.buttonMedium]: buttonSize === ButtonSize.medium,
+      [styles.buttonSmall]: size === ButtonSize.small,
+      [styles.buttonMedium]: size === ButtonSize.medium,
     },
     className
   );

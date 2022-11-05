@@ -2,10 +2,8 @@ import { useState, createContext, useMemo } from "react";
 
 import { Header } from "./components/Header/Header";
 import { Filter } from "./components/Filter/Filter";
-import { Table } from "./components/Table/Table";
 
 import styles from "./OrderListPage.module.css";
-import { useEffect } from "react";
 
 export const OrderListPageContext = createContext();
 
@@ -16,21 +14,40 @@ export const OrderListPage = () => {
   const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
   const [filterDropdownStates, setFilterDropdownStates] = useState([]);
-  const [filterDropdownValue, setFilterDropdownValue] =
-    useState(filterDefaultValue);
+  const [, setFilterDropdownValue] = useState(filterDefaultValue);
   const [isFilterReset, setFilterReset] = useState(false);
+  const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [dateFromValue, setDateFromValue] = useState("");
+  const [dateToValue, setDateToValue] = useState("");
+  const [sumFromValue, setSumFromValue] = useState("");
+  const [sumToValue, setSumToValue] = useState("");
 
-  const handleFilterOpen = () => {
-    setFilterOpen(!isFilterOpen);
-  };
+  const createHandleChange =
+    (setter) =>
+    ({ target: { value } }) =>
+      setter(value);
+  const createHandleReset = (setter) => () => setter("");
 
-  const handleFilterDropdownOpen = () => {
+  const handleSearchChange = createHandleChange(setSearchValue);
+  const handleDateFromChange = createHandleChange(setDateFromValue);
+  const handleDateToChange = createHandleChange(setDateToValue);
+  const handleSumFromChange = createHandleChange(setSumFromValue);
+  const handleSumToChange = createHandleChange(setSumToValue);
+
+  const handleSearchReset = createHandleReset(setSearchValue);
+  const handleDateFromReset = createHandleReset(setDateFromValue);
+  const handleDateToReset = createHandleReset(setDateToValue);
+  const handleSumFromReset = createHandleReset(setSumFromValue);
+  const handleSumToReset = createHandleReset(setSumToValue);
+
+  const handleFilterOpen = () => setFilterOpen(!isFilterOpen);
+  const handleFilterDropdownOpen = () =>
     setFilterDropdownOpen(!isFilterDropdownOpen);
-  };
-
-  const handleThemeDropdownOpen = () => {
+  const handleThemeDropdownOpen = () =>
     setThemeDropdownOpen(!isThemeDropdownOpen);
-  };
+  const handleDeleteDropdownOpen = () =>
+    setDeleteDropdownOpen(!isDeleteDropdownOpen);
 
   const handleFilterDropdownStates = (value) => {
     const dropdownStates = filterDropdownStates.includes(value)
@@ -39,13 +56,13 @@ export const OrderListPage = () => {
     setFilterDropdownStates(dropdownStates);
   };
 
-  useEffect(() => {
-    const dropdownValue =
+  const filterDropdownValue = useMemo(
+    () =>
       filterDropdownStates.length == 0 || filterDropdownStates.length == 6
         ? filterDefaultValue
-        : filterDropdownStates.join(", ");
-    setFilterDropdownValue(dropdownValue);
-  }, [filterDropdownStates]);
+        : filterDropdownStates.join(", "),
+    [filterDropdownStates]
+  );
 
   const handleFilterReset = () => {
     setFilterDropdownStates([]);
@@ -66,6 +83,23 @@ export const OrderListPage = () => {
       filterDropdownValue,
       isFilterReset,
       onFilterReset: handleFilterReset,
+      searchValue,
+      dateFromValue,
+      dateToValue,
+      sumFromValue,
+      sumToValue,
+      onSearchChange: handleSearchChange,
+      onDateFromChange: handleDateFromChange,
+      onDateToChange: handleDateToChange,
+      onSumFromChange: handleSumFromChange,
+      onSumToChange: handleSumToChange,
+      onSearchReset: handleSearchReset,
+      onDateFromReset: handleDateFromReset,
+      onDateToReset: handleDateToReset,
+      onSumFromReset: handleSumFromReset,
+      onSumToReset: handleSumToReset,
+      isDeleteDropdownOpen,
+      onDeleteDropdownOpen: handleDeleteDropdownOpen,
     };
   }, [
     isFilterOpen,
@@ -74,6 +108,12 @@ export const OrderListPage = () => {
     filterDropdownStates,
     filterDropdownValue,
     isFilterReset,
+    searchValue,
+    dateFromValue,
+    dateToValue,
+    sumFromValue,
+    sumToValue,
+    isDeleteDropdownOpen,
   ]);
 
   return (
@@ -81,7 +121,6 @@ export const OrderListPage = () => {
       <div className={styles._}>
         <Header title={"Список заказов"} />
         <Filter />
-        <Table />
       </div>
     </OrderListPageContext.Provider>
   );

@@ -6,52 +6,37 @@ const noop = () => {};
 
 import styles from "./Input.module.css";
 
-export const InputStyle = {
-  empty: "empty",
-  correct: "correct",
-  incorrect: "incorrect",
-  disabled: "disabled",
-};
-
 export const Input = ({
-  inputStyle,
   title = null,
   prefix,
   placeholder,
   value,
   onChange = noop,
   onClick = noop,
-  onButtonClick = noop,
+  onReset = noop,
+  disabled = false,
+  corrected = true,
   className,
   iconType = null,
   ...props
 }) => {
   const fieldClassNames = classnames(styles.field, {
-    [styles.fieldEmpty]: inputStyle === InputStyle.empty,
-    [styles.fieldIncorrect]: inputStyle === InputStyle.incorrect,
-    [styles.fieldCorrect]: inputStyle === InputStyle.correct,
-    [styles.fieldDisabled]: inputStyle === InputStyle.disabled,
+    [styles.fieldIncorrect]: !corrected,
+    [styles.fieldCorrect]: corrected,
+    [styles.fieldDisabled]: disabled,
   });
 
   const classNames = classnames(styles._, className);
 
-  const buttonClassNames = classnames(styles.button, {
-    [styles.buttonDisabled]: inputStyle === InputStyle.empty,
-  });
-
   let iconClassNames = classnames(styles.icon, {
-    [styles.iconCorrect]: inputStyle === InputStyle.correct,
-    [styles.iconIncorrect]: inputStyle === InputStyle.incorrect,
-    [styles.iconDisabled]: inputStyle === InputStyle.disabled,
+    [styles.iconCorrect]: corrected,
+    [styles.iconIncorrect]: !corrected,
+    [styles.iconDisabled]: disabled,
   });
 
-  iconType = iconType
-    ? iconType
-    : inputStyle === InputStyle.empty
-    ? null
-    : inputStyle === InputStyle.disabled
-    ? IconType.locked
-    : IconType.x_medium;
+  if (!iconType) {
+    iconType = disabled ? IconType.locked : IconType.x_medium;
+  }
 
   return (
     <label className={classNames}>
@@ -64,11 +49,11 @@ export const Input = ({
           value={value === null ? "" : value}
           onClick={onClick}
           onChange={onChange}
-          disabled={inputStyle === InputStyle.disabled}
+          disabled={disabled}
           {...props}
         />
-        {!!iconType && (
-          <button className={buttonClassNames} onClick={onButtonClick}>
+        {!!iconType && value && (
+          <button className={styles.button} onClick={onReset}>
             <Icon className={iconClassNames} iconType={iconType}></Icon>
           </button>
         )}
