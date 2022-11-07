@@ -1,0 +1,35 @@
+._ {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-filter);
+}
+
+.filterDate {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+  width: 19%;
+}
+
+.filterStatus {
+  display: flex;
+  position: relative;
+  width: 12.8%;
+}
+
+.filterPrice {
+  display: flex;
+  gap: 0.25rem;
+  width: 17%;
+  align-items: flex-end;
+}
+
+.filtersButton {
+  align-self: flex-end;
+}
+
+.hidden {
+  display: none;
+}

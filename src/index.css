@@ -1,13 +1,54 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Ubuntu", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-primary);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.34);
+  border-radius: 0.5rem;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+:root {
+  --color-primary: #fff;
+  --color-secondary: #000;
+  --color-filter: #ebf0f5;
+  --color-sensitive: #bad8f5;
+  --color-medium: #459df5;
+  --color-select: #459df5;
+  --color-danger: #f53152;
+  --color-warning: #ff8c56;
+  --color-success: #0fb864;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-strong: #287ed5;
+  --color-solid: #1e65a4;
+}
+
+:root[data-theme="light"] {
+  --color-secondary: #000;
+  --color-sensitive: #bad8f5;
+  --color-primary: #fff;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-filter: #ebf0f5;
+}
+
+:root[data-theme="dark"] {
+  --color-secondary: #bcc4cc;
+  --color-sensitive: #454e52;
+  --color-primary: #2b2d33;
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-filter: #171b1f;
 }
