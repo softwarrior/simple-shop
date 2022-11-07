@@ -3,75 +3,41 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  IconType,
 } from "../../../../../shared/components";
 
+import { Status } from "./Status/Status";
+
 import styles from "./OrdersTableBody.module.css";
+import commonStyles from "../OrdersTable.module.css";
 import mock from "../../../OrderListPage.mock.json";
-
-const statusName = {
-  new: "Новый",
-  calculation: "Рассчет",
-  confirmed: "Подтвержден",
-  postponed: "Отложен",
-  completed: "Выполнен",
-  declined: "Отменен",
-};
-
-const statusIcon = {
-  completed: IconType.checkmark,
-  declined: IconType.abort,
-};
-
-const statusIconStyle = {
-  new: styles.iconPostponed,
-  calculation: styles.iconCalculation,
-  confirmed: styles.iconCompleted,
-  postponed: styles.iconPostponed,
-  completed: styles.iconCompleted,
-  declined: styles.iconCanceled,
-};
 
 export const OrdersTableBody = () => {
   const rows = mock.map(
     ({ id, orderNumber, date, status, amount, sum, customer }) => {
       return (
-        <TableRow
-          key={id}
-          prefix={<Checkbox className={styles.checkboxWrap} />}
-          cells={[
-            <TableCell
-              key={`${id}_1`}
-              className={styles.orderNumberWrap}
-              text={orderNumber}
-            />,
-            <TableCell
-              key={`${id}_2`}
-              className={styles.dateWrap}
-              text={date}
-            />,
-            <TableCell
-              key={`${id}_3`}
-              className={styles.statusWrap}
-              text={statusName[status]}
-              iconType={statusIcon[status] || IconType.dot}
-              iconClassName={statusIconStyle[status]}
-            />,
-            <TableCell
-              key={`${id}_4`}
-              className={styles.amountWrap}
-              text={amount}
-            />,
-            <TableCell key={`${id}_5`} className={styles.sumWrap} text={sum} />,
-            <TableCell
-              key={`${id}_6`}
-              className={styles.customerWrap}
-              text={customer}
-            />,
-          ]}
-        />
+        <TableRow key={id}>
+          <Checkbox className={commonStyles.checkboxWrap} />
+          <TableCell className={commonStyles.orderNumberWrap}>
+            <span className={styles.cellText}>{orderNumber}</span>
+          </TableCell>
+          <TableCell className={commonStyles.dateWrap}>
+            <span className={styles.cellText}>{date}</span>
+          </TableCell>
+          <TableCell className={commonStyles.statusWrap}>
+            <Status status={status} />
+          </TableCell>
+          <TableCell className={commonStyles.amountWrap}>
+            <span className={styles.cellText}>{amount}</span>
+          </TableCell>
+          <TableCell className={commonStyles.sumWrap}>
+            <span className={styles.cellText}>{sum}</span>
+          </TableCell>
+          <TableCell className={commonStyles.customerWrap}>
+            <span className={styles.cellText}>{customer}</span>
+          </TableCell>
+        </TableRow>
       );
     }
   );
-  return <TableBody rows={rows} />;
+  return <TableBody>{rows}</TableBody>;
 };

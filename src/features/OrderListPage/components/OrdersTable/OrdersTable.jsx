@@ -5,9 +5,9 @@ import { OrdersTableBody } from "./OrdersTableBody/OrdersTableBody";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
 
 export const OrdersTable = () => (
-  <Table
-    header={<OrdersTableHeader />}
-    body={<OrdersTableBody />}
-    footer={<OrdersTableFooter />}
-  />
+  <Table>
+    <OrdersTableHeader />
+    <OrdersTableBody />
+    <OrdersTableFooter />
+  </Table>
 );

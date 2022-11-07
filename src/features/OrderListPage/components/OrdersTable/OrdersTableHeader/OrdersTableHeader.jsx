@@ -4,57 +4,64 @@ import {
   TableHeader,
   Checkbox,
   TableHeaderCell,
+  Icon,
+  IconType,
 } from "../../../../../shared/components";
 
 import styles from "./OrdersTableHeader.module.css";
+import commonStyles from "../OrdersTable.module.css";
 
 const headerCells = [
   {
-    className: styles.tableHeaderOrderNumber,
+    className: commonStyles.orderNumberWrap,
     text: "#",
-    isIcon: false,
   },
   {
-    className: styles.tableHeaderOrderDate,
+    className: commonStyles.dateWrap,
     text: "Дата",
+    isIcon: true,
   },
   {
     className: classnames(
-      styles.tableHeaderOrderStatus,
+      commonStyles.statusWrap,
       styles.tableHeaderOrderActive
     ),
     text: "Статус",
+    isIcon: true,
   },
   {
-    className: styles.tableHeaderOrderPosition,
+    className: commonStyles.amountWrap,
     text: "Позиций",
+    isIcon: true,
   },
   {
-    className: styles.tableHeaderOrderSum,
+    className: commonStyles.sumWrap,
     text: "Сумма",
+    isIcon: true,
   },
   {
-    className: styles.tableHeaderOrderCustomer,
+    className: commonStyles.customerWrap,
     text: "ФИО покупателя",
-    isIcon: false,
   },
 ];
 
 export const OrdersTableHeader = () => {
-  const cells = headerCells.map(({ className, text, isIcon }) => (
-    <TableHeaderCell
-      key={text}
-      className={className}
-      text={text}
-      isIcon={isIcon}
-    />
-  ));
   return (
     <div className={styles._}>
-      <TableHeader
-        prefix={<Checkbox className={styles.tableHeaderCheckbox} />}
-        cells={cells}
-      />
+      <TableHeader>
+        <Checkbox className={commonStyles.checkboxWrap} />
+        {headerCells.map(({ className, text, isIcon }) => (
+          <TableHeaderCell key={text} className={className}>
+            <span className={styles.tableHeaderText}>{text}</span>
+            {isIcon && (
+              <Icon
+                className={styles.tableHeaderIcon}
+                iconType={IconType.v_arrow}
+              />
+            )}
+          </TableHeaderCell>
+        ))}
+      </TableHeader>
     </div>
   );
 };

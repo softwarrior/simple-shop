@@ -17,47 +17,49 @@ export const OrdersTableFooter = () => {
   const { onDeleteDropdownOpen } = useContext(OrderListPageContext);
 
   return (
-    <TableFooter
-      text={"Выбрано записей: 5"}
-      firstButton={
-        <Button
-          className={styles.tableFooterButton}
-          buttonStyle={ButtonStyle.primary}
-          size={ButtonSize.small}
-          iconType={IconType.pencil}
-          isAlign={true}
-          onClick={() => {}}
-        >
-          Изменить статус
-        </Button>
-      }
-      secondButton={
-        <Button
-          buttonStyle={ButtonStyle.danger}
-          size={ButtonSize.small}
-          iconType={IconType.bin}
-          isAlign={true}
-          onClick={onDeleteDropdownOpen}
-        >
-          Удалить
-        </Button>
-      }
-      secondButtonDropdown={<OrdersTableDeleteDropdown />}
-      paginationButtons={["1", "2", "3", "4", "5", "...", "100", "#"].map(
-        (text) => (
+    <TableFooter>
+      <div className={styles.tableFooterButtonsStatus}>
+        <div className={styles.tableFooterAction}>
+          <span className={styles.tableFooterText}>{"Выбрано записей: 5"}</span>
           <Button
-            key={text}
-            buttonStyle={
-              text === "1" ? ButtonStyle.primary : ButtonStyle.reverse
-            }
+            className={styles.tableFooterButton}
+            buttonStyle={ButtonStyle.primary}
             size={ButtonSize.small}
+            iconType={IconType.pencil}
             isAlign={true}
             onClick={() => {}}
           >
-            {text}
+            Изменить статус
           </Button>
-        )
-      )}
-    />
+          <Button
+            buttonStyle={ButtonStyle.danger}
+            size={ButtonSize.small}
+            iconType={IconType.bin}
+            isAlign={true}
+            onClick={onDeleteDropdownOpen}
+          >
+            Удалить
+          </Button>
+          <OrdersTableDeleteDropdown />
+        </div>
+      </div>
+      <div className={styles.tableFooterPagination}>
+        <div className={styles.tableFooterPaginationForm}>
+          {["1", "2", "3", "4", "5", "...", "100", "#"].map((text) => (
+            <Button
+              key={text}
+              buttonStyle={
+                text === "1" ? ButtonStyle.primary : ButtonStyle.reverse
+              }
+              size={ButtonSize.small}
+              isAlign={true}
+              onClick={() => {}}
+            >
+              {text}
+            </Button>
+          ))}
+        </div>
+      </div>
+    </TableFooter>
   );
 };
