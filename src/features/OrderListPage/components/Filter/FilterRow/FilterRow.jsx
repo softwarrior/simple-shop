@@ -18,7 +18,7 @@ export const FilterRow = () => {
   const {
     isFilterOpen,
     onFilterDropdownOpen,
-    filterDropdownValue,
+    filterStatusText,
     dateFromValue,
     dateToValue,
     sumFromValue,
@@ -59,7 +59,7 @@ export const FilterRow = () => {
       <div className={styles.filterStatus}>
         <Input
           title={"Статус заказа"}
-          value={filterDropdownValue}
+          value={filterStatusText}
           onClick={onFilterDropdownOpen}
           onReset={onFilterDropdownOpen}
           iconType={IconType.v_arrow}

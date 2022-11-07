@@ -14,8 +14,7 @@ export const OrderListPage = () => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
-  const [filterDropdownStates, setFilterDropdownStates] = useState([]);
-  const [, setFilterDropdownValue] = useState(filterDefaultValue);
+  const [filterSelectedStatuses, setFilterSelectedStatuses] = useState([]);
   const [isFilterReset, setFilterReset] = useState(false);
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -50,24 +49,23 @@ export const OrderListPage = () => {
   const handleDeleteDropdownOpen = () =>
     setDeleteDropdownOpen(!isDeleteDropdownOpen);
 
-  const handleFilterDropdownStates = (value) => {
-    const dropdownStates = filterDropdownStates.includes(value)
-      ? filterDropdownStates.filter((item) => item !== value)
-      : [...filterDropdownStates, value];
-    setFilterDropdownStates(dropdownStates);
+  const handlefilterSelectedStatuses = (value) => {
+    const dropdownStates = filterSelectedStatuses.includes(value)
+      ? filterSelectedStatuses.filter((item) => item !== value)
+      : [...filterSelectedStatuses, value];
+    setFilterSelectedStatuses(dropdownStates);
   };
 
-  const filterDropdownValue = useMemo(
+  const filterStatusText = useMemo(
     () =>
-      filterDropdownStates.length == 0 || filterDropdownStates.length == 6
+      filterSelectedStatuses.length == 0 || filterSelectedStatuses.length == 6
         ? filterDefaultValue
-        : filterDropdownStates.join(", "),
-    [filterDropdownStates]
+        : filterSelectedStatuses.join(", "),
+    [filterSelectedStatuses]
   );
 
   const handleFilterReset = () => {
-    setFilterDropdownStates([]);
-    setFilterDropdownValue(filterDefaultValue);
+    setFilterSelectedStatuses([]);
     setFilterReset(false);
   };
 
@@ -79,9 +77,9 @@ export const OrderListPage = () => {
       onFilterDropdownOpen: handleFilterDropdownOpen,
       isThemeDropdownOpen,
       onThemeDropdownOpen: handleThemeDropdownOpen,
-      filterDropdownStates,
-      onFilterDropdownStates: handleFilterDropdownStates,
-      filterDropdownValue,
+      filterSelectedStatuses,
+      onfilterSelectedStatuses: handlefilterSelectedStatuses,
+      filterStatusText,
       isFilterReset,
       onFilterReset: handleFilterReset,
       searchValue,
@@ -106,8 +104,8 @@ export const OrderListPage = () => {
     isFilterOpen,
     isFilterDropdownOpen,
     isThemeDropdownOpen,
-    filterDropdownStates,
-    filterDropdownValue,
+    filterSelectedStatuses,
+    filterStatusText,
     isFilterReset,
     searchValue,
     dateFromValue,

@@ -16,8 +16,11 @@ const DropdownStates = {
 };
 
 export const FilterDropdown = () => {
-  const { isFilterDropdownOpen, filterDropdownStates, onFilterDropdownStates } =
-    useContext(OrderListPageContext);
+  const {
+    isFilterDropdownOpen,
+    filterSelectedStatuses,
+    onfilterSelectedStatuses,
+  } = useContext(OrderListPageContext);
 
   const classNames = classnames(styles._, {
     [styles.disabled]: !isFilterDropdownOpen,
@@ -31,8 +34,8 @@ export const FilterDropdown = () => {
             <li key={key} className={styles.item}>
               <Checkbox
                 title={value}
-                onChange={() => onFilterDropdownStates(value)}
-                checked={filterDropdownStates.includes(value)}
+                onChange={() => onfilterSelectedStatuses(value)}
+                checked={filterSelectedStatuses.includes(value)}
               />
             </li>
           ))}
