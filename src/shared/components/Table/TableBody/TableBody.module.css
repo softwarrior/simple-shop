@@ -4,9 +4,3 @@
   flex-direction: column;
   overflow: auto;
 }
-
-.tableBodyCustomerList {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}

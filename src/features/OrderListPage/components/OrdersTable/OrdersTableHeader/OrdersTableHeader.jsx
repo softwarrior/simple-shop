@@ -1,60 +1,64 @@
-import classnames from "classnames";
+import { useState } from "react";
 
-import {
-  TableHeader,
-  Checkbox,
-  TableHeaderCell,
-} from "../../../../../shared/components";
+import { TableHeader, Checkbox } from "../../../../../shared/components";
+
+import { HeaderCell } from "./HeaderCell/HeaderCell";
 
 import styles from "./OrdersTableHeader.module.css";
+import commonStyles from "../OrdersTable.module.css";
 
-const headerCells = [
-  {
-    className: styles.tableHeaderOrderNumber,
+const headerCells = {
+  orderNumber: {
+    className: commonStyles.orderNumberWrap,
     text: "#",
-    isIcon: false,
   },
-  {
-    className: styles.tableHeaderOrderDate,
+  date: {
+    className: commonStyles.dateWrap,
     text: "Дата",
+    isIcon: true,
   },
-  {
-    className: classnames(
-      styles.tableHeaderOrderStatus,
-      styles.tableHeaderOrderActive
-    ),
+  status: {
+    className: commonStyles.statusWrap,
     text: "Статус",
+    isIcon: true,
   },
-  {
-    className: styles.tableHeaderOrderPosition,
+  amount: {
+    className: commonStyles.amountWrap,
     text: "Позиций",
+    isIcon: true,
   },
-  {
-    className: styles.tableHeaderOrderSum,
+  sum: {
+    className: commonStyles.sumWrap,
     text: "Сумма",
+    isIcon: true,
   },
-  {
-    className: styles.tableHeaderOrderCustomer,
+  customer: {
+    className: commonStyles.customerWrap,
     text: "ФИО покупателя",
-    isIcon: false,
   },
-];
+};
 
 export const OrdersTableHeader = () => {
-  const cells = headerCells.map(({ className, text, isIcon }) => (
-    <TableHeaderCell
-      key={text}
-      className={className}
-      text={text}
-      isIcon={isIcon}
-    />
-  ));
+  const [activeId, setActiveId] = useState("date");
+  const handleActiveId = (id) => setActiveId(id);
   return (
     <div className={styles._}>
-      <TableHeader
-        prefix={<Checkbox className={styles.tableHeaderCheckbox} />}
-        cells={cells}
-      />
+      <TableHeader>
+        <Checkbox className={commonStyles.checkboxWrap} />
+        {Object.entries(headerCells).map(
+          ([key, { className, text, isIcon }]) => (
+            <HeaderCell
+              key={key}
+              id={key}
+              className={className}
+              text={text}
+              isIcon={isIcon}
+              isActive={activeId === key}
+              onClick={isIcon ? () => handleActiveId(key) : () => {}}
+            />
+          )
+        )}
+      </TableHeader>
     </div>
   );
 };

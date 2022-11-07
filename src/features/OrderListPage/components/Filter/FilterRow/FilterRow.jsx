@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import classnames from "classnames";
 
@@ -9,33 +10,39 @@ import {
   Input,
 } from "../../../../../shared/components";
 
+import {
+  getStatusText,
+  getDateFrom,
+  getDateTo,
+  getSumFrom,
+  getSumTo,
+  setFilter,
+  activateFilter,
+} from "../../../model/ordersFilter";
+
 import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
 
 import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterRow.module.css";
 
 export const FilterRow = () => {
-  const {
-    isFilterOpen,
-    onFilterDropdownOpen,
-    filterStatusText,
-    dateFromValue,
-    dateToValue,
-    sumFromValue,
-    sumToValue,
-    onDateFromChange,
-    onDateToChange,
-    onSumFromChange,
-    onSumToChange,
-    onDateFromReset,
-    onDateToReset,
-    onSumFromReset,
-    onSumToReset,
-  } = useContext(OrderListPageContext);
+  const { isFilterOpen, onFilterDropdownOpen } =
+    useContext(OrderListPageContext);
+  const dispatch = useDispatch();
 
   const classNames = classnames(styles._, {
     [styles.hidden]: !isFilterOpen,
   });
+
+  const reset = true;
+  const createHandle =
+    (filter, isReset = false) =>
+    (event) =>
+      dispatch(setFilter({ filter, value: isReset ? "" : event.target.value }));
+
+  const handleAccept = () => {
+    dispatch(activateFilter());
+  };
 
   return (
     <div className={classNames}>
@@ -44,22 +51,22 @@ export const FilterRow = () => {
           title={"Дата оформления"}
           prefix={"c"}
           placeholder="dd.mm.yyyy"
-          value={dateFromValue}
-          onChange={onDateFromChange}
-          onReset={onDateFromReset}
+          value={useSelector(getDateFrom)}
+          onChange={createHandle("dateFrom")}
+          onReset={createHandle("dateFrom", reset)}
         />
         <Input
           prefix={"по"}
           placeholder="dd.mm.yyyy"
-          value={dateToValue}
-          onChange={onDateToChange}
-          onReset={onDateToReset}
+          value={useSelector(getDateTo)}
+          onChange={createHandle("dateTo")}
+          onReset={createHandle("dateTo", reset)}
         />
       </div>
       <div className={styles.filterStatus}>
         <Input
           title={"Статус заказа"}
-          value={filterStatusText}
+          value={useSelector(getStatusText)}
           onClick={onFilterDropdownOpen}
           onReset={onFilterDropdownOpen}
           iconType={IconType.v_arrow}
@@ -72,17 +79,17 @@ export const FilterRow = () => {
           title={"Сумма заказа"}
           prefix={"от"}
           placeholder="₽"
-          value={sumFromValue}
-          onChange={onSumFromChange}
-          onReset={onSumFromReset}
+          value={useSelector(getSumFrom)}
+          onChange={createHandle("sumFrom")}
+          onReset={createHandle("sumFrom", reset)}
         />
         <Input
           type="text"
           prefix={"до"}
           placeholder="₽"
-          value={sumToValue}
-          onChange={onSumToChange}
-          onReset={onSumToReset}
+          value={useSelector(getSumTo)}
+          onChange={createHandle("sumTo")}
+          onReset={createHandle("sumTo", reset)}
         />
       </div>
       <Button
@@ -90,6 +97,7 @@ export const FilterRow = () => {
         buttonStyle={ButtonStyle.transparent}
         size={ButtonSize.medium}
         isAlign={true}
+        onClick={handleAccept}
       >
         Применить
       </Button>

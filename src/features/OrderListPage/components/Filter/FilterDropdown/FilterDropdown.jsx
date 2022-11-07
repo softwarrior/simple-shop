@@ -1,7 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import classnames from "classnames";
 
 import { Checkbox } from "../../../../../shared/components";
+
+import { getStatus, setFilter } from "../../../model/ordersFilter";
 
 import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterDropdown.module.css";
@@ -16,11 +19,12 @@ const DropdownStates = {
 };
 
 export const FilterDropdown = () => {
-  const {
-    isFilterDropdownOpen,
-    filterSelectedStatuses,
-    onfilterSelectedStatuses,
-  } = useContext(OrderListPageContext);
+  const { isFilterDropdownOpen } = useContext(OrderListPageContext);
+  const dispatch = useDispatch();
+
+  const createHandle = (value) => () =>
+    dispatch(setFilter({ filter: "status", value: value }));
+  const status = useSelector(getStatus);
 
   const classNames = classnames(styles._, {
     [styles.disabled]: !isFilterDropdownOpen,
@@ -34,8 +38,8 @@ export const FilterDropdown = () => {
             <li key={key} className={styles.item}>
               <Checkbox
                 title={value}
-                onChange={() => onfilterSelectedStatuses(value)}
-                checked={filterSelectedStatuses.includes(value)}
+                onChange={createHandle(key)}
+                checked={status.includes(key)}
               />
             </li>
           ))}
