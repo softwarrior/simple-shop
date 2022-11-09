@@ -60,6 +60,9 @@ const filterOrders = (orders, activeFilter) => {
 
 const searchOrders = (orders, search) => {
   return orders.filter((order) => {
+    if (isNumber(search)) {
+      return order.orderNumber.substring(0, search.length) === search;
+    }
     return !search.length
       ? true
       : order.customer.includes(search)
@@ -67,3 +70,5 @@ const searchOrders = (orders, search) => {
       : false;
   });
 };
+
+const isNumber = (n) => !isNaN(parseFloat(n)) && !isNaN(n - 0);
