@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -26,11 +26,16 @@ export const FilterSearchRow = () => {
     [styles.hidden]: !isFilterOpen,
   });
 
-  const reset = true;
-  const createHandle =
-    (filter, isReset = false) =>
-    (event) =>
-      dispatch(setFilter({ filter, value: isReset ? "" : event.target.value }));
+  const [searchdValue, setSearchdValue] = useState(useSelector(getSearch));
+  const handleSearchChange = ({ target: { value } }) => setSearchdValue(value);
+  const handleSearchReset = () => setSearchdValue("");
+  const handleResetAllClick = () =>
+    dispatch(setFilter({ filter: "all", value: "" }));
+
+  const debouncedSearchValue = useDebounce(searchdValue, 500);
+  useEffect(() => {
+    dispatch(setFilter({ filter: "search", value: debouncedSearchValue }));
+  }, [debouncedSearchValue]);
 
   return (
     <div className={styles._}>
@@ -41,9 +46,9 @@ export const FilterSearchRow = () => {
           prefix={
             <Icon className={styles.searchIcon} iconType={IconType.search} />
           }
-          value={useSelector(getSearch)}
-          onChange={createHandle("search")}
-          onReset={createHandle("search", reset)}
+          value={searchdValue}
+          onChange={handleSearchChange}
+          onReset={handleSearchReset}
         />
         <Button
           buttonStyle={isFilterOpen ? ButtonStyle.primary : ButtonStyle.reverse}
@@ -59,7 +64,7 @@ export const FilterSearchRow = () => {
           buttonStyle={ButtonStyle.transparent}
           size={ButtonSize.medium}
           isAlign={true}
-          onClick={createHandle("all", reset)}
+          onClick={handleResetAllClick}
         >
           Сбросить фильтры
         </Button>
@@ -67,4 +72,17 @@ export const FilterSearchRow = () => {
       <FilterLoader buttonText="Загрузка" />
     </div>
   );
+};
+
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
+  return debouncedValue;
 };

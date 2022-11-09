@@ -3,13 +3,15 @@ import { createSelector } from "reselect";
 const getOrdersData = (state) => state.orders.data;
 const getActiveFilter = (state) => state.ordersFilter.activeFilter;
 const getActivePage = (state) => state.ordersFilter.activePage;
+const getSearch = (state) => state.ordersFilter.data.search;
 
 const pageSize = 30;
 
 export const getOrders = createSelector(
-  [getOrdersData, getActiveFilter, getActivePage],
-  (orders, activeFilter, activePage) => {
-    const filteredOrders = filterOrders(orders, activeFilter);
+  [getOrdersData, getActiveFilter, getActivePage, getSearch],
+  (orders, activeFilter, activePage, search) => {
+    const searchedOrders = searchOrders(orders, search);
+    const filteredOrders = filterOrders(searchedOrders, activeFilter);
     const pagedOrders = paginationOrders(filteredOrders, activePage);
     return [pagedOrders, filteredOrders.length];
   }
@@ -53,5 +55,15 @@ const filterOrders = (orders, activeFilter) => {
       ? true
       : false;
     return isStatus && isDateFrom && isDateTo && isSumFrom && isSumTo;
+  });
+};
+
+const searchOrders = (orders, search) => {
+  return orders.filter((order) => {
+    return !search.length
+      ? true
+      : order.customer.includes(search)
+      ? true
+      : false;
   });
 };
