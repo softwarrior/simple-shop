@@ -3,4 +3,29 @@ import { Checkbox } from "./Checkbox/Checkbox";
 import { Icon, IconType } from "./Icon/Icon";
 import { Input } from "./Input/Input";
 
-export { Button, ButtonSize, ButtonStyle, Checkbox, Icon, IconType, Input };
+import {
+  Table,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHeaderCell,
+} from "./Table";
+
+export {
+  Button,
+  ButtonSize,
+  ButtonStyle,
+  Checkbox,
+  Icon,
+  IconType,
+  Input,
+  Table,
+  TableHeader,
+  TableFooter,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHeaderCell,
+};

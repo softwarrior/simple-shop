@@ -2,6 +2,7 @@ import { useState, createContext, useMemo } from "react";
 
 import { Header } from "./components/Header/Header";
 import { Filter } from "./components/Filter/Filter";
+import { OrdersTable } from "./components/OrdersTable/OrdersTable";
 
 import styles from "./OrderListPage.module.css";
 
@@ -119,6 +120,7 @@ export const OrderListPage = () => {
       <div className={styles._}>
         <Header title={"Список заказов"} />
         <Filter />
+        <OrdersTable />
       </div>
     </OrderListPageContext.Provider>
   );
