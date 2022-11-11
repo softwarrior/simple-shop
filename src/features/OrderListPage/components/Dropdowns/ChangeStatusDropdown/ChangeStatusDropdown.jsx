@@ -1,10 +1,6 @@
 import classnames from "classnames";
-import { useContext } from "react";
 import { Radio } from "../../../../../shared/components";
-
 import styles from "./ChangeStatusDropdown.module.css";
-
-import { OrderListPageContext } from "../../../OrderListPage";
 
 const DropdownStates = {
   new: "Новый",
@@ -15,11 +11,9 @@ const DropdownStates = {
   declined: "Отменен",
 };
 
-export const ChangeStatusDropdown = ({ name = "dropdownStatus" }) => {
-  const { isStatusDropdownOpen } = useContext(OrderListPageContext);
-
+export const ChangeStatusDropdown = ({ isOpen, name = "dropdownStatus" }) => {
   const classNames = classnames(styles._, {
-    [styles.disabled]: !isStatusDropdownOpen,
+    [styles.disabled]: !isOpen,
   });
   return (
     <div className={classNames}>

@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useContext } from "react";
 import classnames from "classnames";
-
 import {
   Button,
   ButtonSize,
@@ -9,7 +7,6 @@ import {
   IconType,
   Input,
 } from "../../../../../shared/components";
-
 import {
   getStatusText,
   getDateFrom,
@@ -19,15 +16,15 @@ import {
   setFilter,
   activateFilter,
 } from "../../../model/ordersFilter";
-
 import { FilterStatusDropdown } from "../../Dropdowns/FilterStatusDropdown/FilterStatusDropdown";
-
-import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterRow.module.css";
+import { useState } from "react";
 
-export const FilterRow = () => {
-  const { isFilterOpen, onFilterDropdownOpen } =
-    useContext(OrderListPageContext);
+export const FilterRow = ({ isFilterOpen }) => {
+  const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
+  const handleFilterDropdownOpen = () =>
+    setFilterDropdownOpen(!isFilterDropdownOpen);
+
   const dispatch = useDispatch();
 
   const classNames = classnames(styles._, {
@@ -67,12 +64,12 @@ export const FilterRow = () => {
         <Input
           title={"Статус заказа"}
           value={useSelector(getStatusText)}
-          onClick={onFilterDropdownOpen}
-          onReset={onFilterDropdownOpen}
+          onClick={handleFilterDropdownOpen}
+          onReset={handleFilterDropdownOpen}
           iconType={IconType.v_arrow}
           readOnly={true}
         />
-        <FilterStatusDropdown />
+        <FilterStatusDropdown isOpen={isFilterDropdownOpen} />
       </div>
       <div className={styles.filterPrice}>
         <Input

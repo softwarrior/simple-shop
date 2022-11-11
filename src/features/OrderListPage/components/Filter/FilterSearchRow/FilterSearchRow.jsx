@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -15,11 +15,9 @@ import { getSearch, setFilter } from "../../../model/ordersFilter";
 
 import { FilterLoader } from "../FilterLoader/FilterLoader";
 
-import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterSearchRow.module.css";
 
-export const FilterSearchRow = () => {
-  const { isFilterOpen, onFilterOpen } = useContext(OrderListPageContext);
+export const FilterSearchRow = ({ isFilterOpen, onFilterOpen }) => {
   const dispatch = useDispatch();
 
   let resetClassNames = classnames({

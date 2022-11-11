@@ -1,20 +1,20 @@
 import styles from "./Pagination.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Button,
   ButtonSize,
   ButtonStyle,
 } from "../../../../../../shared/components";
-import { OrderListPageContext } from "../../../../OrderListPage";
 import { activatePage, getActivePage } from "../../../../model/ordersFilter";
 import { ChangePageDropdown } from "../../../Dropdowns/ChangePageDropdown/ChangePageDropdown";
+import { useState } from "react";
 
 const pageSize = 30;
 
 export const Pagination = ({ ordersCount }) => {
-  const { isPageDropdownOpen, onPageDropdownOpen } =
-    useContext(OrderListPageContext);
+  const [isPageDropdownOpen, setPageDropdownOpen] = useState(false);
+  const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
   const dispatch = useDispatch();
 
   const paginations = [];
@@ -35,7 +35,7 @@ export const Pagination = ({ ordersCount }) => {
   const handlePageClick = (text) => {
     if (text === "...") return;
     if (text === "#") {
-      onPageDropdownOpen();
+      handlePageDropdownOpen();
       return;
     }
     const page = parseInt(text);
@@ -47,6 +47,7 @@ export const Pagination = ({ ordersCount }) => {
       {paginations.map((text) => (
         <PaginationButton
           key={text}
+          isPageDropdownOpen={isPageDropdownOpen}
           buttonStyle={buttonStyle(text, activePage, isPageDropdownOpen)}
           onClick={() => handlePageClick(text)}
         >
@@ -57,7 +58,12 @@ export const Pagination = ({ ordersCount }) => {
   );
 };
 
-const PaginationButton = ({ buttonStyle, onClick, children }) => {
+const PaginationButton = ({
+  buttonStyle,
+  onClick,
+  children,
+  isPageDropdownOpen,
+}) => {
   return (
     <>
       <Button
@@ -68,7 +74,7 @@ const PaginationButton = ({ buttonStyle, onClick, children }) => {
       >
         {children}
       </Button>
-      {children === "#" && <ChangePageDropdown />}
+      {children === "#" && <ChangePageDropdown isOpen={isPageDropdownOpen} />}
     </>
   );
 };

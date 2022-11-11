@@ -1,12 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useContext } from "react";
 import classnames from "classnames";
-
 import { Checkbox } from "../../../../../shared/components";
-
 import { getStatus, setFilter } from "../../../model/ordersFilter";
-
-import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterStatusDropdown.module.css";
 
 const DropdownStates = {
@@ -18,8 +13,7 @@ const DropdownStates = {
   declined: "Отменен",
 };
 
-export const FilterStatusDropdown = () => {
-  const { isFilterDropdownOpen } = useContext(OrderListPageContext);
+export const FilterStatusDropdown = ({ isOpen }) => {
   const dispatch = useDispatch();
 
   const createHandle = (value) => () =>
@@ -27,7 +21,7 @@ export const FilterStatusDropdown = () => {
   const status = useSelector(getStatus);
 
   const classNames = classnames(styles._, {
-    [styles.disabled]: !isFilterDropdownOpen,
+    [styles.disabled]: !isOpen,
   });
 
   return (

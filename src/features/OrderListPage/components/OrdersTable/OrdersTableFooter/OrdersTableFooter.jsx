@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   Button,
   ButtonSize,
@@ -8,13 +7,17 @@ import {
 } from "../../../../../shared/components";
 import { DeleteRowDropdown } from "../../Dropdowns/DeleteRowDropdown/DeleteRowDropdown";
 import { ChangeStatusDropdown } from "../../Dropdowns/ChangeStatusDropdown/ChangeStatusDropdown";
-import { OrderListPageContext } from "../../../OrderListPage";
 import { Pagination } from "./Pagination/Pagination";
 import styles from "./OrdersTableFooter.module.css";
+import { useState } from "react";
 
 export const OrdersTableFooter = ({ ordersCount }) => {
-  const { onDeleteDropdownOpen, onStatusDropdownOpen } =
-    useContext(OrderListPageContext);
+  const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
+  const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
+  const handleDeleteDropdownOpen = () =>
+    setDeleteDropdownOpen(!isDeleteDropdownOpen);
+  const handleStatusDropdownOpen = () =>
+    setStatusDropdownOpen(!isStatusDropdownOpen);
 
   return (
     <TableFooter>
@@ -27,21 +30,21 @@ export const OrdersTableFooter = ({ ordersCount }) => {
             size={ButtonSize.small}
             iconType={IconType.pencil}
             isAlign={true}
-            onClick={onStatusDropdownOpen}
+            onClick={handleStatusDropdownOpen}
           >
             Изменить статус
           </Button>
-          <ChangeStatusDropdown />
+          <ChangeStatusDropdown isOpen={isStatusDropdownOpen} />
           <Button
             buttonStyle={ButtonStyle.danger}
             size={ButtonSize.small}
             iconType={IconType.bin}
             isAlign={true}
-            onClick={onDeleteDropdownOpen}
+            onClick={handleDeleteDropdownOpen}
           >
             Удалить
           </Button>
-          <DeleteRowDropdown />
+          <DeleteRowDropdown isOpen={isDeleteDropdownOpen} />
         </div>
       </div>
       <Pagination ordersCount={ordersCount} />

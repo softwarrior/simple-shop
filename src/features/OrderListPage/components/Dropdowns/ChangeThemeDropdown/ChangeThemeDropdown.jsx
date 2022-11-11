@@ -1,27 +1,22 @@
 import { useContext } from "react";
 import classnames from "classnames";
-
 import {
   Button,
   ButtonSize,
   ButtonStyle,
   IconType,
 } from "../../../../../shared/components";
-
-import { OrderListPageContext } from "../../../OrderListPage";
 import {
   ThemeContext,
   ThemeType,
 } from "../../../../ThemeContextProvider/ThemeContextProvider";
-
 import styles from "./ChangeThemeDropdown.module.css";
 
-export const ChangeThemeDropdown = () => {
-  const { isThemeDropdownOpen } = useContext(OrderListPageContext);
+export const ChangeThemeDropdown = ({ isOpen }) => {
   const { theme, onTheme } = useContext(ThemeContext);
 
   const classNames = classnames(styles._, {
-    [styles.disabled]: !isThemeDropdownOpen,
+    [styles.disabled]: !isOpen,
   });
 
   return (
