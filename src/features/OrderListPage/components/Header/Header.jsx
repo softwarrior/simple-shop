@@ -7,7 +7,7 @@ import {
   IconType,
 } from "../../../../shared/components";
 
-import { HeaderThemeDropdown } from "./HeaderThemeDropdown/HeaderThemeDropdown";
+import { ChangeThemeDropdown } from "../Dropdowns/ChangeThemeDropdown/ChangeThemeDropdown";
 import {
   ThemeContext,
   ThemeType,
@@ -38,7 +38,7 @@ export const Header = ({ title }) => {
       >
         {buttonText}
       </Button>
-      <HeaderThemeDropdown />
+      <ChangeThemeDropdown />
     </div>
   );
 };

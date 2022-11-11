@@ -14,9 +14,9 @@ import {
   ThemeType,
 } from "../../../../ThemeContextProvider/ThemeContextProvider";
 
-import styles from "./HeaderThemeDropdown.module.css";
+import styles from "./ChangeThemeDropdown.module.css";
 
-export const HeaderThemeDropdown = () => {
+export const ChangeThemeDropdown = () => {
   const { isThemeDropdownOpen } = useContext(OrderListPageContext);
   const { theme, onTheme } = useContext(ThemeContext);
 

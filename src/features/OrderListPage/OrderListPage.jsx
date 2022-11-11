@@ -2,6 +2,7 @@ import { useState, createContext, useMemo } from "react";
 
 import { Header } from "./components/Header/Header";
 import { Filter } from "./components/Filter/Filter";
+import { OrderForm } from "./components/OrderForm/OrderForm";
 import { OrdersTable } from "./components/OrdersTable/OrdersTable";
 
 import styles from "./OrderListPage.module.css";
@@ -13,6 +14,8 @@ export const OrderListPage = () => {
   const [isFilterDropdownOpen, setFilterDropdownOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
+  const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
+  const [isPageDropdownOpen, setPageDropdownOpen] = useState(false);
 
   const handleFilterOpen = () => setFilterOpen(!isFilterOpen);
   const handleFilterDropdownOpen = () =>
@@ -21,6 +24,9 @@ export const OrderListPage = () => {
     setThemeDropdownOpen(!isThemeDropdownOpen);
   const handleDeleteDropdownOpen = () =>
     setDeleteDropdownOpen(!isDeleteDropdownOpen);
+  const handleStatusDropdownOpen = () =>
+    setStatusDropdownOpen(!isStatusDropdownOpen);
+  const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
 
   const value = useMemo(() => {
     return {
@@ -32,12 +38,18 @@ export const OrderListPage = () => {
       onThemeDropdownOpen: handleThemeDropdownOpen,
       isDeleteDropdownOpen,
       onDeleteDropdownOpen: handleDeleteDropdownOpen,
+      isStatusDropdownOpen,
+      onStatusDropdownOpen: handleStatusDropdownOpen,
+      isPageDropdownOpen,
+      onPageDropdownOpen: handlePageDropdownOpen,
     };
   }, [
     isFilterOpen,
     isFilterDropdownOpen,
     isThemeDropdownOpen,
     isDeleteDropdownOpen,
+    isStatusDropdownOpen,
+    isPageDropdownOpen,
   ]);
 
   return (
@@ -47,6 +59,7 @@ export const OrderListPage = () => {
         <Filter />
         <OrdersTable />
       </div>
+      <OrderForm />
     </OrderListPageContext.Provider>
   );
 };

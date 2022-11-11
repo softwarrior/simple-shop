@@ -31,4 +31,5 @@
 
 .tableFooterPaginationForm {
   display: flex;
+  position: relative;
 }

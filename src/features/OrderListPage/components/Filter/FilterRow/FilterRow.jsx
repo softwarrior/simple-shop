@@ -20,7 +20,7 @@ import {
   activateFilter,
 } from "../../../model/ordersFilter";
 
-import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
+import { FilterStatusDropdown } from "../../Dropdowns/FilterStatusDropdown/FilterStatusDropdown";
 
 import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterRow.module.css";
@@ -72,7 +72,7 @@ export const FilterRow = () => {
           iconType={IconType.v_arrow}
           readOnly={true}
         />
-        <FilterDropdown />
+        <FilterStatusDropdown />
       </div>
       <div className={styles.filterPrice}>
         <Input

@@ -7,7 +7,7 @@ import { Checkbox } from "../../../../../shared/components";
 import { getStatus, setFilter } from "../../../model/ordersFilter";
 
 import { OrderListPageContext } from "../../../OrderListPage";
-import styles from "./FilterDropdown.module.css";
+import styles from "./FilterStatusDropdown.module.css";
 
 const DropdownStates = {
   new: "Новый",
@@ -18,7 +18,7 @@ const DropdownStates = {
   declined: "Отменен",
 };
 
-export const FilterDropdown = () => {
+export const FilterStatusDropdown = () => {
   const { isFilterDropdownOpen } = useContext(OrderListPageContext);
   const dispatch = useDispatch();
 

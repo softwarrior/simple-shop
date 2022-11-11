@@ -27,7 +27,7 @@
   margin: 0 0.5rem 0 0;
   border: 0.0625rem solid var(--color-sensitive);
   border-radius: 0.125rem;
-  background-color: var(--color--white);
+  background-color: var(--color-primary);
   box-sizing: border-box;
 }
 

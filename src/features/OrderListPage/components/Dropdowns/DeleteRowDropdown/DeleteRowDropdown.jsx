@@ -9,9 +9,9 @@ import {
 
 import { OrderListPageContext } from "../../../OrderListPage";
 
-import styles from "./OrdersTableDeleteDropdown.module.css";
+import styles from "./DeleteRowDropdown.module.css";
 
-export const OrdersTableDeleteDropdown = () => {
+export const DeleteRowDropdown = () => {
   const { isDeleteDropdownOpen } = useContext(OrderListPageContext);
 
   const classNames = classnames(styles._, {
