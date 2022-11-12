@@ -22,13 +22,19 @@ export const HeaderCell = ({
 }) => {
   const [direction, setDirection] = useState(1);
   const dispatch = useDispatch();
-  const classNames = classnames(className, {
-    [styles.tableHeaderOrderActive]: isActive,
-  });
+  const classNames = classnames(
+    styles._,
+    {
+      [styles.tableHeaderOrderActive]: isActive,
+      [styles.notPressed]: !isIcon,
+    },
+    className
+  );
   const iconClassNames = classnames(styles.tableHeaderIcon, {
     [styles.iconRotate]: isActive && direction === -1,
   });
   const handleOnClick = () => {
+    if (!onClick) return;
     dispatch(sortOrders({ id: id, direction: -direction }));
     setDirection(-direction);
     onClick();

@@ -54,7 +54,7 @@ export const OrdersTableHeader = () => {
               text={text}
               isIcon={isIcon}
               isActive={activeId === key}
-              onClick={isIcon ? () => handleActiveId(key) : () => {}}
+              onClick={isIcon ? () => handleActiveId(key) : null}
             />
           )
         )}

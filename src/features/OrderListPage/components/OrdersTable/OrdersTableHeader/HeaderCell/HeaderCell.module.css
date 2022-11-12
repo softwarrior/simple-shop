@@ -1,3 +1,7 @@
+._ {
+  cursor: pointer;
+}
+
 .tableHeaderOrderActive {
   background: rgba(0, 0, 0, 0.15);
 }
@@ -19,4 +23,8 @@
 
 .iconRotate {
   transform: rotate(60deg);
+}
+
+.notPressed {
+  cursor: default;
 }

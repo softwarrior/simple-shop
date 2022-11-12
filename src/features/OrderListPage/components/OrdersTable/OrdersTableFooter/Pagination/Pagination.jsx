@@ -53,7 +53,7 @@ export const Pagination = ({ ordersCount }) => {
   return (
     <div className={styles._}>
       {paginations.map((text, index) => (
-        <div key={index}>
+        <div className={styles._} key={index}>
           {text === DOTS && <span className={styles.dots}>{text}</span>}
           {text !== DOTS && (
             <div className={styles.wrap}>

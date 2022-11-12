@@ -27,15 +27,15 @@ const statusStyle = {
   declined: styles.iconCanceled,
 };
 
-export const Status = ({ status }) => {
+export const Status = ({ children }) => {
   return (
     <>
       <Icon
-        className={classnames(styles.icon, statusStyle[status])}
-        iconType={statusIcon[status] || IconType.dot}
+        className={classnames(styles.icon, statusStyle[children])}
+        iconType={statusIcon[children] || IconType.dot}
       />
-      <span className={classnames(styles.text, statusStyle[status])}>
-        {statusName[status]}
+      <span className={classnames(styles.text, statusStyle[children])}>
+        {statusName[children]}
       </span>
     </>
   );

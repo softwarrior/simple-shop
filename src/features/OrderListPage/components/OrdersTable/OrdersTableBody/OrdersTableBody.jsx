@@ -1,18 +1,16 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-
 import {
   Checkbox,
   TableRow,
   TableCell,
   TableBody,
 } from "../../../../../shared/components";
-
 import { Status } from "./Status/Status";
-
+import { Sum } from "./Sum/Sum";
+import { Dates } from "./Dates/Dates";
 import styles from "./OrdersTableBody.module.css";
 import commonStyles from "../OrdersTable.module.css";
-
 import { sortOrders } from "../../../model/orders";
 
 export const OrdersTableBody = ({ orders }) => {
@@ -23,7 +21,7 @@ export const OrdersTableBody = ({ orders }) => {
   }, []);
 
   const rows = orders.map(
-    ({ id, orderNumber, date, status, amount, sum, customer }) => {
+    ({ id, orderNumber, date, status, amount, sum, currency, customer }) => {
       return (
         <TableRow key={id}>
           <Checkbox className={commonStyles.checkboxWrap} />
@@ -31,16 +29,16 @@ export const OrdersTableBody = ({ orders }) => {
             <span className={styles.cellText}>{orderNumber}</span>
           </TableCell>
           <TableCell className={commonStyles.dateWrap}>
-            <span className={styles.cellText}>{date}</span>
+            <Dates>{date}</Dates>
           </TableCell>
           <TableCell className={commonStyles.statusWrap}>
-            <Status status={status} />
+            <Status>{status}</Status>
           </TableCell>
           <TableCell className={commonStyles.amountWrap}>
             <span className={styles.cellText}>{amount}</span>
           </TableCell>
           <TableCell className={commonStyles.sumWrap}>
-            <span className={styles.cellText}>{sum}</span>
+            <Sum currency={currency}>{sum}</Sum>
           </TableCell>
           <TableCell className={commonStyles.customerWrap}>
             <span className={styles.cellText}>{customer}</span>
