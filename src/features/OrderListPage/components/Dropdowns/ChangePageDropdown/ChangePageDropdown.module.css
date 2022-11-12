@@ -11,6 +11,7 @@
   border-radius: 0.5rem;
   position: absolute;
   top: -6rem;
+  left: -8.5rem;
   background: var(--color-primary);
 }
 

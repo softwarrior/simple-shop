@@ -1,11 +1,10 @@
 import { createSelector } from "reselect";
+import { PAGE_SIZE } from "../../OrderListPage.constants";
 
 const getOrdersData = (state) => state.orders.data;
 const getActiveFilter = (state) => state.ordersFilter.activeFilter;
 const getActivePage = (state) => state.ordersFilter.activePage;
 const getSearch = (state) => state.ordersFilter.data.search;
-
-const pageSize = 30;
 
 export const getOrders = createSelector(
   [getOrdersData, getActiveFilter, getActivePage, getSearch],
@@ -18,8 +17,8 @@ export const getOrders = createSelector(
 );
 
 const paginationOrders = (orders, activePage) => {
-  const begin = pageSize * (activePage - 1);
-  const end = pageSize * activePage;
+  const begin = PAGE_SIZE * (activePage - 1);
+  const end = PAGE_SIZE * activePage;
   return orders.slice(begin, end);
 };
 

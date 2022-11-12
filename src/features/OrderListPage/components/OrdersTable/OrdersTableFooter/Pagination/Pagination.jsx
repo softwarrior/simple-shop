@@ -8,33 +8,33 @@ import {
 } from "../../../../../../shared/components";
 import { activatePage, getActivePage } from "../../../../model/ordersFilter";
 import { ChangePageDropdown } from "../../../Dropdowns/ChangePageDropdown/ChangePageDropdown";
+import { usePagination } from "./usePagination";
 import { useState } from "react";
+import { PAGE_SIZE } from "../../../../OrderListPage.constants";
 
-const pageSize = 30;
+const DOTS = "...";
+const SUFFIX = "#";
 
 export const Pagination = ({ ordersCount }) => {
   const [isPageDropdownOpen, setPageDropdownOpen] = useState(false);
   const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
   const dispatch = useDispatch();
-
-  const paginations = [];
-  const paginationSize = Math.ceil(ordersCount / pageSize);
-  if (paginationSize) {
-    for (let i = 0; i < paginationSize - 1; i++) paginations.push(`${i + 1}`);
-    if (paginations.length) paginations.push("...");
-    paginations.push(paginationSize);
-    paginations.push("#");
-  }
+  const activePage = useSelector(getActivePage);
+  const paginations = usePagination({
+    currentPage: activePage,
+    totalCount: ordersCount,
+    pageSize: PAGE_SIZE,
+    dots: DOTS,
+    suffix: SUFFIX,
+  });
 
   useEffect(() => {
     dispatch(activatePage(parseInt(paginations[0])));
   }, [ordersCount]);
 
-  const activePage = useSelector(getActivePage);
-
   const handlePageClick = (text) => {
-    if (text === "...") return;
-    if (text === "#") {
+    if (text === DOTS) return;
+    if (text === SUFFIX) {
       handlePageDropdownOpen();
       return;
     }
@@ -44,21 +44,21 @@ export const Pagination = ({ ordersCount }) => {
 
   return (
     <div className={styles._}>
-      {paginations.map((text) => (
-        <PaginationButton
-          key={text}
+      {paginations.map((text, index) => (
+        <PaginationElement
+          key={index}
           isPageDropdownOpen={isPageDropdownOpen}
           buttonStyle={buttonStyle(text, activePage, isPageDropdownOpen)}
           onClick={() => handlePageClick(text)}
         >
           {text}
-        </PaginationButton>
+        </PaginationElement>
       ))}
     </div>
   );
 };
 
-const PaginationButton = ({
+const PaginationElement = ({
   buttonStyle,
   onClick,
   children,
@@ -66,21 +66,28 @@ const PaginationButton = ({
 }) => {
   return (
     <>
-      <Button
-        buttonStyle={buttonStyle}
-        size={ButtonSize.small}
-        isAlign={true}
-        onClick={onClick}
-      >
-        {children}
-      </Button>
-      {children === "#" && <ChangePageDropdown isOpen={isPageDropdownOpen} />}
+      {children === DOTS && <span className={styles.dots}>{children}</span>}
+      {children !== DOTS && (
+        <div className={styles.wrap}>
+          <Button
+            buttonStyle={buttonStyle}
+            size={ButtonSize.small}
+            isAlign={true}
+            onClick={onClick}
+          >
+            {children}
+          </Button>
+          {children === SUFFIX && (
+            <ChangePageDropdown isOpen={isPageDropdownOpen} />
+          )}
+        </div>
+      )}
     </>
   );
 };
 
 const buttonStyle = (text, activePage, isPageDropdownOpen) => {
-  if (text === "#") {
+  if (text === SUFFIX) {
     return isPageDropdownOpen ? ButtonStyle.primary : ButtonStyle.reverse;
   }
   return activePage == text ? ButtonStyle.primary : ButtonStyle.reverse;

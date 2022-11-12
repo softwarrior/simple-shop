@@ -14,10 +14,12 @@ import { useState } from "react";
 export const OrdersTableFooter = ({ ordersCount }) => {
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
   const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
-  const handleDeleteDropdownOpen = () =>
+  const handleDeleteDropdownOpen = () => {
     setDeleteDropdownOpen(!isDeleteDropdownOpen);
-  const handleStatusDropdownOpen = () =>
+  };
+  const handleStatusDropdownOpen = () => {
     setStatusDropdownOpen(!isStatusDropdownOpen);
+  };
 
   return (
     <TableFooter>
