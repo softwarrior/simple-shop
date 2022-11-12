@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { PAGE_SIZE } from "../../OrderListPage.constants";
+import { isNumber } from "../../../../shared/utils";
 
 const getOrdersData = (state) => state.orders.data;
 const getActiveFilter = (state) => state.ordersFilter.activeFilter;
@@ -69,5 +70,3 @@ const searchOrders = (orders, search) => {
       : false;
   });
 };
-
-const isNumber = (n) => !isNaN(parseFloat(n)) && !isNaN(n - 0);

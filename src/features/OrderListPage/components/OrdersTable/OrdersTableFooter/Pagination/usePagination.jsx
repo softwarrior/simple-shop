@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { isNumber } from "../../../../../../shared/utils";
 
 const range = (start, end) => {
   let length = end - start + 1;
@@ -14,6 +15,13 @@ export const usePagination = ({
   suffix,
 }) => {
   const paginationRange = useMemo(() => {
+    if (
+      !isNumber(totalCount) ||
+      !isNumber(pageSize) ||
+      !isNumber(siblingCount) ||
+      !isNumber(currentPage)
+    )
+      return [];
     const totalPageCount = Math.ceil(totalCount / pageSize);
     const totalPageNumbers = siblingCount + 5;
     if (totalPageNumbers >= totalPageCount) {

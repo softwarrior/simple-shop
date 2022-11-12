@@ -47,6 +47,7 @@ const setState = (state, { payload: { filter, value } }) => {
       data.sumFrom = value;
       data.sumTo = value;
       state.activeFilter = null;
+      state.activePage = 1;
       break;
     case "status":
       data.status = data.status.includes(value)

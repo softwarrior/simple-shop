@@ -3,6 +3,7 @@ import { Checkbox } from "./Checkbox/Checkbox";
 import { Icon, IconType } from "./Icon/Icon";
 import { Input } from "./Input/Input";
 import { Radio } from "./Radio/Radio";
+import { useDebounce } from "./useDebounce/useDebounce";
 
 import {
   Table,
@@ -23,6 +24,7 @@ export {
   IconType,
   Input,
   Radio,
+  useDebounce,
   Table,
   TableHeader,
   TableFooter,

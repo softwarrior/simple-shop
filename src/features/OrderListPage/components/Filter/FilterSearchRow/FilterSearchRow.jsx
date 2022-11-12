@@ -1,7 +1,6 @@
 import classnames from "classnames";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   Button,
   ButtonSize,
@@ -9,12 +8,10 @@ import {
   Icon,
   IconType,
   Input,
+  useDebounce,
 } from "../../../../../shared/components";
-
 import { getSearch, setFilter } from "../../../model/ordersFilter";
-
 import { FilterLoader } from "../FilterLoader/FilterLoader";
-
 import styles from "./FilterSearchRow.module.css";
 
 export const FilterSearchRow = ({ isFilterOpen, onFilterOpen }) => {
@@ -70,17 +67,4 @@ export const FilterSearchRow = ({ isFilterOpen, onFilterOpen }) => {
       <FilterLoader buttonText="Загрузка" />
     </div>
   );
-};
-
-const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value]);
-  return debouncedValue;
 };

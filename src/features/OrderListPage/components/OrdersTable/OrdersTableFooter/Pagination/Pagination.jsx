@@ -11,6 +11,7 @@ import { ChangePageDropdown } from "../../../Dropdowns/ChangePageDropdown/Change
 import { usePagination } from "./usePagination";
 import { useState } from "react";
 import { PAGE_SIZE } from "../../../../OrderListPage.constants";
+import { isNumber } from "../../../../../../shared/utils";
 
 const DOTS = "...";
 const SUFFIX = "#";
@@ -20,8 +21,14 @@ export const Pagination = ({ ordersCount }) => {
   const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
   const dispatch = useDispatch();
   const activePage = useSelector(getActivePage);
+
+  const handleDebouncedInputPage = (value) => {
+    const page = isNumber(value) ? value : 1;
+    dispatch(activatePage(parseInt(page)));
+  };
+
   const paginations = usePagination({
-    currentPage: activePage,
+    currentPage: parseInt(activePage),
     totalCount: ordersCount,
     pageSize: PAGE_SIZE,
     dots: DOTS,
@@ -29,7 +36,8 @@ export const Pagination = ({ ordersCount }) => {
   });
 
   useEffect(() => {
-    dispatch(activatePage(parseInt(paginations[0])));
+    const page = isNumber(paginations[0]) ? paginations[0] : 1;
+    dispatch(activatePage(parseInt(page)));
   }, [ordersCount]);
 
   const handlePageClick = (text) => {
@@ -45,44 +53,28 @@ export const Pagination = ({ ordersCount }) => {
   return (
     <div className={styles._}>
       {paginations.map((text, index) => (
-        <PaginationElement
-          key={index}
-          isPageDropdownOpen={isPageDropdownOpen}
-          buttonStyle={buttonStyle(text, activePage, isPageDropdownOpen)}
-          onClick={() => handlePageClick(text)}
-        >
-          {text}
-        </PaginationElement>
-      ))}
-    </div>
-  );
-};
-
-const PaginationElement = ({
-  buttonStyle,
-  onClick,
-  children,
-  isPageDropdownOpen,
-}) => {
-  return (
-    <>
-      {children === DOTS && <span className={styles.dots}>{children}</span>}
-      {children !== DOTS && (
-        <div className={styles.wrap}>
-          <Button
-            buttonStyle={buttonStyle}
-            size={ButtonSize.small}
-            isAlign={true}
-            onClick={onClick}
-          >
-            {children}
-          </Button>
-          {children === SUFFIX && (
-            <ChangePageDropdown isOpen={isPageDropdownOpen} />
+        <div key={index}>
+          {text === DOTS && <span className={styles.dots}>{text}</span>}
+          {text !== DOTS && (
+            <div className={styles.wrap}>
+              <Button
+                buttonStyle={buttonStyle(text, activePage, isPageDropdownOpen)}
+                size={ButtonSize.small}
+                onClick={() => handlePageClick(text)}
+              >
+                {text}
+              </Button>
+              {text === SUFFIX && (
+                <ChangePageDropdown
+                  isOpen={isPageDropdownOpen}
+                  onDebouncedChange={handleDebouncedInputPage}
+                />
+              )}
+            </div>
           )}
         </div>
-      )}
-    </>
+      ))}
+    </div>
   );
 };
 
