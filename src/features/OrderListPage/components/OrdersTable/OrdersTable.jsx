@@ -8,13 +8,13 @@ import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
 
 import { getOrders } from "../../model/orders";
 
-export const OrdersTable = () => {
+export const OrdersTable = ({ onOrderClick }) => {
   const [orders, ordersCount] = useSelector(getOrders);
 
   return (
     <Table>
       <OrdersTableHeader />
-      <OrdersTableBody orders={orders} />
+      <OrdersTableBody orders={orders} onOrderClick={onOrderClick} />
       <OrdersTableFooter ordersCount={ordersCount} />
     </Table>
   );

@@ -60,3 +60,8 @@ const paginateOrders = (orders, filters) => {
   const end = PAGE_SIZE * filters.page;
   return orders.slice(begin, end);
 };
+
+export const getOrderById = (id) =>
+  createSelector([getOrderList], (orders) => {
+    return orders.find((order) => order.id === id);
+  });

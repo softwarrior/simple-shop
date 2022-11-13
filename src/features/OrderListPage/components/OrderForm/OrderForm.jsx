@@ -1,21 +1,20 @@
 import classnames from "classnames";
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getOrderById } from "../../model/orders";
 import styles from "./OrderForm.module.css";
 
-export const OrderForm = () => {
-  const [isOrderFormOpen, setOrderFormOpen] = useState(false);
-
-  const handleOrderFormOpen = () => setOrderFormOpen(!isOrderFormOpen);
+export const OrderForm = ({ isOpen, onClose, orderId }) => {
+  const order = useSelector(getOrderById(orderId));
 
   const classNames = classnames(styles._, {
-    [styles.hidden]: !isOrderFormOpen,
+    [styles.hidden]: !isOpen,
   });
 
   return (
-    <div className={classNames} onClick={handleOrderFormOpen}>
-      <div className={styles.window}>
-        <h2 className={styles.header}>Заголовок</h2>
-        <div className={styles.text}>Какойт-то важный текст</div>
+    <div className={classNames}>
+      <div className={styles.window} onClick={onClose}>
+        <h2 className={styles.header}>{`Заявка #${order?.orderNumber}`}</h2>
+        <div className={styles.text}>тело заявки</div>
       </div>
     </div>
   );
