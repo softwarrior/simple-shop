@@ -1,24 +1,14 @@
 import classnames from "classnames";
-
 import { IconType, Icon } from "../../../../../../shared/components";
-
 import styles from "./Status.module.css";
+import { STATUS_NAME } from "../../../../OrderListPage.constants";
 
-const statusName = {
-  new: "Новый",
-  calculation: "Рассчет",
-  confirmed: "Подтвержден",
-  postponed: "Отложен",
-  completed: "Выполнен",
-  declined: "Отменен",
-};
-
-const statusIcon = {
+const STATUS_ICON = {
   completed: IconType.checkmark,
   declined: IconType.abort,
 };
 
-const statusIconStyle = {
+const STATUS_ICON_STYLE = {
   new: styles.iconNew,
   calculation: styles.iconCalculation,
   confirmed: styles.iconConfirmed,
@@ -27,7 +17,7 @@ const statusIconStyle = {
   declined: styles.iconDeclined,
 };
 
-const statusTextStyle = {
+const STATUS_TEXT_STYLE = {
   new: styles.textNew,
   calculation: styles.textCalculation,
   confirmed: styles.textConfirmed,
@@ -40,11 +30,11 @@ export const Status = ({ children }) => {
   return (
     <>
       <Icon
-        className={classnames(styles.icon, statusIconStyle[children])}
-        iconType={statusIcon[children] || IconType.dot}
+        className={classnames(styles.icon, STATUS_ICON_STYLE[children])}
+        iconType={STATUS_ICON[children] || IconType.dot}
       />
-      <span className={classnames(styles.text, statusTextStyle[children])}>
-        {statusName[children]}
+      <span className={classnames(styles.text, STATUS_TEXT_STYLE[children])}>
+        {STATUS_NAME[children]}
       </span>
     </>
   );

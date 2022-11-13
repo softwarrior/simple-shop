@@ -1,13 +1,15 @@
-import { useState } from "react";
-
 import { TableHeader, Checkbox } from "../../../../../shared/components";
-
 import { HeaderCell } from "./HeaderCell/HeaderCell";
-
 import styles from "./OrdersTableHeader.module.css";
 import commonStyles from "../OrdersTable.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDirection,
+  getSortField,
+  setFilter,
+} from "../../../model/ordersFilter";
 
-const headerCells = {
+const HEADER_CELLS = {
   orderNumber: {
     className: commonStyles.orderNumberWrap,
     text: "#",
@@ -39,22 +41,30 @@ const headerCells = {
 };
 
 export const OrdersTableHeader = () => {
-  const [activeId, setActiveId] = useState("date");
-  const handleActiveId = (id) => setActiveId(id);
+  const sortField = useSelector(getSortField);
+  const direction = useSelector(getDirection);
+  const dispatch = useDispatch();
+  const handleSortField = (field) => {
+    if (sortField === field)
+      dispatch(setFilter({ key: "direction", value: -direction }));
+    else dispatch(setFilter({ key: "direction", value: 1 }));
+    dispatch(setFilter({ key: "sortField", value: field }));
+  };
   return (
     <div className={styles._}>
       <TableHeader>
         <Checkbox className={commonStyles.checkboxWrap} />
-        {Object.entries(headerCells).map(
-          ([key, { className, text, isIcon }]) => (
+        {Object.entries(HEADER_CELLS).map(
+          ([field, { className, text, isIcon }]) => (
             <HeaderCell
-              key={key}
-              id={key}
+              key={field}
+              id={field}
               className={className}
               text={text}
               isIcon={isIcon}
-              isActive={activeId === key}
-              onClick={isIcon ? () => handleActiveId(key) : null}
+              isActive={sortField === field}
+              direction={direction}
+              onClick={isIcon ? () => handleSortField(field) : null}
             />
           )
         )}

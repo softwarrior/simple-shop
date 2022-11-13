@@ -6,7 +6,7 @@ import {
   ButtonSize,
   ButtonStyle,
 } from "../../../../../../shared/components";
-import { activatePage, getActivePage } from "../../../../model/ordersFilter";
+import { setFilter, getPage } from "../../../../model/ordersFilter";
 import { ChangePageDropdown } from "../../../Dropdowns/ChangePageDropdown/ChangePageDropdown";
 import { usePagination } from "./usePagination";
 import { useState } from "react";
@@ -19,12 +19,14 @@ const SUFFIX = "#";
 export const Pagination = ({ ordersCount }) => {
   const [isPageDropdownOpen, setPageDropdownOpen] = useState(false);
   const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
-  const dispatch = useDispatch();
-  const activePage = useSelector(getActivePage);
+  const handleDebouncedInputPage = (value) => setPage(value);
 
-  const handleDebouncedInputPage = (value) => {
+  const dispatch = useDispatch();
+  const activePage = useSelector(getPage) ?? 1;
+
+  const setPage = (value) => {
     const page = isNumber(value) ? value : 1;
-    dispatch(activatePage(parseInt(page)));
+    dispatch(setFilter({ key: "page", value: parseInt(page) }));
   };
 
   const paginations = usePagination({
@@ -36,18 +38,16 @@ export const Pagination = ({ ordersCount }) => {
   });
 
   useEffect(() => {
-    const page = isNumber(paginations[0]) ? paginations[0] : 1;
-    dispatch(activatePage(parseInt(page)));
+    setPage(paginations[0]);
   }, [ordersCount]);
 
-  const handlePageClick = (text) => {
-    if (text === DOTS) return;
-    if (text === SUFFIX) {
+  const handlePageClick = (value) => {
+    if (value === DOTS) return;
+    if (value === SUFFIX) {
       handlePageDropdownOpen();
       return;
     }
-    const page = parseInt(text);
-    dispatch(activatePage(page));
+    setPage(value);
   };
 
   return (
@@ -66,6 +66,7 @@ export const Pagination = ({ ordersCount }) => {
               </Button>
               {text === SUFFIX && (
                 <ChangePageDropdown
+                  maxPage={paginations[paginations.length - 2]}
                   isOpen={isPageDropdownOpen}
                   onDebouncedChange={handleDebouncedInputPage}
                 />

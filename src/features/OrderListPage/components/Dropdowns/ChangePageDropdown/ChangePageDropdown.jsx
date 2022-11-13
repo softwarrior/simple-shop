@@ -4,11 +4,12 @@ import styles from "./ChangePageDropdown.module.css";
 import { useDebounce } from "../../../../../shared/components";
 import { useEffect } from "react";
 import { useState } from "react";
+import { isNumber } from "../../../../../shared/utils";
 
 const none = () => {};
 
 export const ChangePageDropdown = ({
-  initialValue = 1,
+  maxPage,
   isOpen,
   onDebouncedChange = none,
   title = "Номер страницы",
@@ -17,16 +18,17 @@ export const ChangePageDropdown = ({
   const classNames = classnames(styles._, {
     [styles.disabled]: !isOpen,
   });
-  const [inputPage, setInputPage] = useState(initialValue);
+  const [inputPage, setInputPage] = useState("");
   const handleInputPage = ({ target: { value } }) => {
     setInputPage(value);
   };
   const handleInputReset = () => {
-    setInputPage(initialValue);
+    setInputPage("");
   };
-
-  const debouncedValue = useDebounce(inputPage, 500);
+  const debouncedValue = useDebounce(inputPage, 300);
   useEffect(() => {
+    if (!isNumber(debouncedValue)) return;
+    if (parseInt(debouncedValue) > maxPage) return;
     onDebouncedChange(debouncedValue);
   }, [debouncedValue]);
 

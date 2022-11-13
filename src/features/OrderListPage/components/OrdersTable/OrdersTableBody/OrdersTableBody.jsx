@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import {
   Checkbox,
   TableRow,
@@ -11,15 +9,8 @@ import { Sum } from "./Sum/Sum";
 import { Dates } from "./Dates/Dates";
 import styles from "./OrdersTableBody.module.css";
 import commonStyles from "../OrdersTable.module.css";
-import { sortOrders } from "../../../model/orders";
 
 export const OrdersTableBody = ({ orders }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(sortOrders({ id: "date", direction: 1 }));
-  }, []);
-
   const rows = orders.map(
     ({ id, orderNumber, date, status, amount, sum, currency, customer }) => {
       return (

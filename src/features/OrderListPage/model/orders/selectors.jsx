@@ -1,72 +1,62 @@
-import { createSelector } from "reselect";
+import { createSelector } from "@reduxjs/toolkit";
 import { PAGE_SIZE } from "../../OrderListPage.constants";
-import { isNumber } from "../../../../shared/utils";
+import {
+  isDateInRange,
+  isInRange,
+  areAllThruthy,
+  isIncludeNumberOrString,
+  isIncludes,
+} from "../../../../shared/utils";
 
-const getOrdersData = (state) => state.orders.data;
-const getActiveFilter = (state) => state.ordersFilter.activeFilter;
-const getActivePage = (state) => state.ordersFilter.activePage;
-const getSearch = (state) => state.ordersFilter.data.search;
+const getOrderList = (state) => state.orders.orders;
+const getFilter = (state) => state.ordersFilter;
+
+const parseDate = (dateStr) => {
+  if (!dateStr) return null;
+  return Date.parse(dateStr);
+};
 
 export const getOrders = createSelector(
-  [getOrdersData, getActiveFilter, getActivePage, getSearch],
-  (orders, activeFilter, activePage, search) => {
-    const searchedOrders = searchOrders(orders, search);
-    const filteredOrders = filterOrders(searchedOrders, activeFilter);
-    const pagedOrders = paginationOrders(filteredOrders, activePage);
-    return [pagedOrders, filteredOrders.length];
+  [getOrderList, getFilter],
+  (orders, filters) => {
+    const filteredOrders = filterOrders(orders, filters);
+    const sortedOrders = sortOrders(filteredOrders, filters);
+    const paginatedOrders = paginateOrders(sortedOrders, filters);
+    return [paginatedOrders, sortedOrders.length];
   }
 );
 
-const paginationOrders = (orders, activePage) => {
-  const begin = PAGE_SIZE * (activePage - 1);
-  const end = PAGE_SIZE * activePage;
+const filterOrders = (orders, filters) => {
+  const statusFilter = isIncludes(filters.status);
+  const searchFilter = isIncludeNumberOrString(filters.search);
+  const dateFilter = isDateInRange(
+    parseDate(filters.dateFrom),
+    parseDate(filters.dateTo)
+  );
+  const sumFiler = isInRange(
+    parseInt(filters.sumFrom),
+    parseInt(filters.sumTo)
+  );
+  return orders.filter(({ customer, date, sum, orderNumber, status }) => {
+    return areAllThruthy([
+      statusFilter(status),
+      searchFilter(orderNumber, customer),
+      dateFilter(parseDate(date)),
+      sumFiler(parseInt(sum)),
+    ]);
+  });
+};
+
+const sortOrders = (orders, filters) => {
+  return orders.sort((order1, order2) => {
+    return order1[filters.sortField] > order2[filters.sortField]
+      ? -filters.direction
+      : filters.direction;
+  });
+};
+
+const paginateOrders = (orders, filters) => {
+  const begin = PAGE_SIZE * (filters.page - 1);
+  const end = PAGE_SIZE * filters.page;
   return orders.slice(begin, end);
-};
-
-const filterOrders = (orders, activeFilter) => {
-  if (!activeFilter) return orders;
-  const { status, dateFrom, dateTo, sumFrom, sumTo } = activeFilter;
-  return orders.filter((order) => {
-    const isStatus = !status.length
-      ? true
-      : status.includes(order.status)
-      ? true
-      : false;
-    const isDateFrom = !dateFrom
-      ? true
-      : Date.parse(order.date) >= Date.parse(dateFrom)
-      ? true
-      : false;
-    const isDateTo = !dateTo
-      ? true
-      : Date.parse(order.date) <= Date.parse(dateTo)
-      ? true
-      : false;
-    const isSumFrom = !sumFrom
-      ? true
-      : parseInt(order.sum.replace(/ /g, "")) >=
-        parseInt(sumFrom.replace(/ /g, ""))
-      ? true
-      : false;
-    const isSumTo = !sumTo
-      ? true
-      : parseInt(order.sum.replace(/ /g, "")) <=
-        parseInt(sumTo.replace(/ /g, ""))
-      ? true
-      : false;
-    return isStatus && isDateFrom && isDateTo && isSumFrom && isSumTo;
-  });
-};
-
-const searchOrders = (orders, search) => {
-  return orders.filter((order) => {
-    if (isNumber(search)) {
-      return order.orderNumber.substring(0, search.length) === search;
-    }
-    return !search.length
-      ? true
-      : order.customer.includes(search)
-      ? true
-      : false;
-  });
 };

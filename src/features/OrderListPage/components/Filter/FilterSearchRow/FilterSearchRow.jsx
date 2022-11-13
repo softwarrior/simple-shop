@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Button,
   ButtonSize,
@@ -10,26 +10,33 @@ import {
   Input,
   useDebounce,
 } from "../../../../../shared/components";
-import { getSearch, setFilter } from "../../../model/ordersFilter";
+import { setFilter, resetFilters } from "../../../model/ordersFilter";
 import { FilterLoader } from "../FilterLoader/FilterLoader";
 import styles from "./FilterSearchRow.module.css";
 
-export const FilterSearchRow = ({ isFilterOpen, onFilterOpen }) => {
+export const FilterSearchRow = ({
+  isFilterOpen,
+  onFilterOpen,
+  onFilterReset,
+}) => {
   const dispatch = useDispatch();
 
   let resetClassNames = classnames({
     [styles.hidden]: !isFilterOpen,
   });
 
-  const [searchdValue, setSearchdValue] = useState(useSelector(getSearch));
-  const handleSearchChange = ({ target: { value } }) => setSearchdValue(value);
-  const handleSearchReset = () => setSearchdValue("");
-  const handleResetAllClick = () =>
-    dispatch(setFilter({ filter: "all", value: "" }));
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearchChange = ({ target: { value } }) => setSearchValue(value);
+  const handleSearchReset = () => setSearchValue("");
+  const handleResetAllClick = () => {
+    onFilterReset();
+    setSearchValue("");
+    dispatch(resetFilters());
+  };
 
-  const debouncedSearchValue = useDebounce(searchdValue, 500);
+  const debouncedSearchValue = useDebounce(searchValue, 300);
   useEffect(() => {
-    dispatch(setFilter({ filter: "search", value: debouncedSearchValue }));
+    dispatch(setFilter({ key: "search", value: debouncedSearchValue }));
   }, [debouncedSearchValue]);
 
   return (
@@ -41,7 +48,7 @@ export const FilterSearchRow = ({ isFilterOpen, onFilterOpen }) => {
           prefix={
             <Icon className={styles.searchIcon} iconType={IconType.search} />
           }
-          value={searchdValue}
+          value={searchValue}
           onChange={handleSearchChange}
           onReset={handleSearchReset}
         />

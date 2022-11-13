@@ -1,15 +1,7 @@
 import classnames from "classnames";
 import { Radio } from "../../../../../shared/components";
 import styles from "./ChangeStatusDropdown.module.css";
-
-const DropdownStates = {
-  new: "Новый",
-  calculation: "Рассчет",
-  confirmed: "Подтвержден",
-  postponed: "Отложен",
-  completed: "Выполнен",
-  declined: "Отменен",
-};
+import { STATUS_NAME } from "../../../OrderListPage.constants";
 
 export const ChangeStatusDropdown = ({ isOpen, name = "dropdownStatus" }) => {
   const classNames = classnames(styles._, {
@@ -18,7 +10,7 @@ export const ChangeStatusDropdown = ({ isOpen, name = "dropdownStatus" }) => {
   return (
     <div className={classNames}>
       <ul className={styles.list}>
-        {Object.entries(DropdownStates).map(([key, value]) => (
+        {Object.entries(STATUS_NAME).map(([key, value]) => (
           <li key={key} className={styles.item}>
             <Radio title={value} value={key} name={name} />
           </li>
