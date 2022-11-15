@@ -13,8 +13,12 @@ const ordersSlice = createSlice({
     deleteOrders(state, { payload: { ids } }) {
       state.orders = state.orders.filter((order) => !ids.includes(order.id));
     },
+    changeOrder(state, { payload: { id, key, value } }) {
+      const order = state.orders.find((order) => order.id === id);
+      order[key] = value;
+    },
   },
 });
 
-export const { deleteOrders } = ordersSlice.actions;
+export const { deleteOrders, changeOrder } = ordersSlice.actions;
 export const ordersReducer = ordersSlice.reducer;

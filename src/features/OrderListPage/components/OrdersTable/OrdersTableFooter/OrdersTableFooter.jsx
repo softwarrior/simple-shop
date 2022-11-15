@@ -16,6 +16,7 @@ export const OrdersTableFooter = ({
   checkedOrdersId,
   onPageClick,
   onOrderDelete,
+  onOrderChangeStatus,
 }) => {
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
   const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
@@ -45,7 +46,10 @@ export const OrdersTableFooter = ({
           >
             Изменить статус
           </Button>
-          <ChangeStatusDropdown isOpen={isStatusDropdownOpen} />
+          <ChangeStatusDropdown
+            isOpen={isStatusDropdownOpen}
+            onChange={onOrderChangeStatus}
+          />
           <Button
             buttonStyle={ButtonStyle.danger}
             size={ButtonSize.small}

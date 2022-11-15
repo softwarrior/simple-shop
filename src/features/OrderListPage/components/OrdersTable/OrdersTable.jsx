@@ -3,7 +3,7 @@ import { Table } from "../../../../shared/components";
 import { OrdersTableHeader } from "./OrdersTableHeader/OrdersTableHeader";
 import { OrdersTableBody } from "./OrdersTableBody/OrdersTableBody";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
-import { deleteOrders, getOrders } from "../../model/orders";
+import { changeOrder, deleteOrders, getOrders } from "../../model/orders";
 import { useMemo, useReducer, useState } from "react";
 
 const initialState = { checkedOrdersId: new Set() };
@@ -49,6 +49,12 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
     setAllChecked(false);
   };
 
+  const handleOrderChangeStatus = (status) => {
+    state.checkedOrdersId.forEach((id) => {
+      dispatcher(changeOrder({ id, key: "status", value: status }));
+    });
+  };
+
   useMemo(() => {
     if (!orderChecked) {
       dispatch({ clean: true });
@@ -70,6 +76,7 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
         ordersCount={ordersCount}
         onPageClick={handlePageClick}
         onOrderDelete={handleOrderDelete}
+        onOrderChangeStatus={handleOrderChangeStatus}
       />
     </Table>
   );
