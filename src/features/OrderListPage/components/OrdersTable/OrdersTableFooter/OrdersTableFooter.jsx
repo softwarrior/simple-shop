@@ -11,21 +11,24 @@ import { Pagination } from "./Pagination/Pagination";
 import styles from "./OrdersTableFooter.module.css";
 import { useState } from "react";
 
-export const OrdersTableFooter = ({ ordersCount }) => {
+export const OrdersTableFooter = ({
+  ordersCount,
+  checkedOrdersId,
+  onPageClick,
+}) => {
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
   const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
-  const handleDeleteDropdownOpen = () => {
+  const handleDeleteDropdownOpen = () =>
     setDeleteDropdownOpen(!isDeleteDropdownOpen);
-  };
-  const handleStatusDropdownOpen = () => {
+  const handleStatusDropdownOpen = () =>
     setStatusDropdownOpen(!isStatusDropdownOpen);
-  };
-
   return (
     <TableFooter>
       <div className={styles.tableFooterButtonsStatus}>
         <div className={styles.tableFooterAction}>
-          <span className={styles.tableFooterText}>{"Выбрано записей: 0"}</span>
+          <span
+            className={styles.tableFooterText}
+          >{`Выбрано записей: ${checkedOrdersId.size}`}</span>
           <Button
             className={styles.tableFooterButton}
             buttonStyle={ButtonStyle.primary}
@@ -49,7 +52,7 @@ export const OrdersTableFooter = ({ ordersCount }) => {
           <DeleteRowDropdown isOpen={isDeleteDropdownOpen} />
         </div>
       </div>
-      <Pagination ordersCount={ordersCount} />
+      <Pagination ordersCount={ordersCount} onClick={onPageClick} />
     </TableFooter>
   );
 };

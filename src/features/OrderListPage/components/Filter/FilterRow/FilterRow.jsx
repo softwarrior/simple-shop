@@ -14,7 +14,7 @@ import { useState } from "react";
 import { STATUS_NAME } from "../../../OrderListPage.constants";
 import { useEffect } from "react";
 
-export const FilterRow = ({ isFilterOpen, isFilterReset }) => {
+export const FilterRow = ({ isFilterOpen, isFilterReset, onFilterAccept }) => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [sumFrom, setSumFrom] = useState("");
@@ -66,6 +66,7 @@ export const FilterRow = ({ isFilterOpen, isFilterReset }) => {
     dispatch(setFilter({ key: "sumFrom", value: parseNumber(sumFrom) }));
     dispatch(setFilter({ key: "sumTo", value: parseNumber(sumTo) }));
     dispatch(setFilter({ key: "status", value: status }));
+    onFilterAccept();
   };
 
   const statusValue = () => {

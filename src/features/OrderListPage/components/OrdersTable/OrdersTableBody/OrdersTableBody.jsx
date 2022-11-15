@@ -10,12 +10,25 @@ import { Dates } from "./Dates/Dates";
 import styles from "./OrdersTableBody.module.css";
 import commonStyles from "../OrdersTable.module.css";
 
-export const OrdersTableBody = ({ orders, onOrderClick }) => {
+export const OrdersTableBody = ({
+  orders,
+  checkedOrdersId,
+  onOrderClick,
+  onOrderChecked,
+}) => {
+  const handleChecked =
+    (id) =>
+    ({ target: { checked } }) =>
+      onOrderChecked(id, checked);
   const rows = orders.map(
     ({ id, orderNumber, date, status, amount, sum, currency, customer }) => {
       return (
         <TableRow key={id}>
-          <Checkbox className={commonStyles.checkboxWrap} />
+          <Checkbox
+            className={commonStyles.checkboxWrap}
+            checked={checkedOrdersId.has(id)}
+            onChange={handleChecked(id)}
+          />
           <div className={styles.group} onClick={() => onOrderClick(id)}>
             <TableCell className={commonStyles.orderNumberWrap}>
               <span className={styles.cellText}>{orderNumber}</span>

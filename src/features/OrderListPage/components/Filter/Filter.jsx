@@ -5,11 +5,14 @@ import styles from "./Filter.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export const Filter = () => {
+export const Filter = ({ onFilterAccept, onFilterReset, onFilterSearch }) => {
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isFilterReset, setFilterReset] = useState(false);
   const handleFilterOpen = () => setFilterOpen(!isFilterOpen);
-  const handleFilterReset = () => setFilterReset(!isFilterReset);
+  const handleFilterReset = () => {
+    setFilterReset(!isFilterReset);
+    onFilterReset();
+  };
 
   useEffect(() => {
     if (isFilterReset) setFilterReset(!isFilterReset);
@@ -21,11 +24,12 @@ export const Filter = () => {
         isFilterOpen={isFilterOpen}
         onFilterOpen={handleFilterOpen}
         onFilterReset={handleFilterReset}
+        onFilterSearch={onFilterSearch}
       />
       <FilterRow
         isFilterOpen={isFilterOpen}
         isFilterReset={isFilterReset}
-        onFilterReset={handleFilterReset}
+        onFilterAccept={onFilterAccept}
       />
     </div>
   );

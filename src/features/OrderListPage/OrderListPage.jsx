@@ -11,12 +11,25 @@ export const OrderListPage = () => {
   const [orderState, setOrderState] = useState(initialOrderState);
   const handleClose = () => setOrderState(initialOrderState);
   const handleOrderClick = (id) => setOrderState({ isOpen: true, id });
+  const [orderChecked, setOrderChecked] = useState(false);
+  const handleOrderChecked = (checked) => () => {
+    setOrderChecked(checked);
+  };
+
   return (
     <>
       <div className={styles._}>
         <Header title={"Список заказов"} />
-        <Filter />
-        <OrdersTable onOrderClick={handleOrderClick} />
+        <Filter
+          onFilterAccept={handleOrderChecked(false)}
+          onFilterReset={handleOrderChecked(false)}
+          onFilterSearch={handleOrderChecked(false)}
+        />
+        <OrdersTable
+          orderChecked={orderChecked}
+          onOrderClick={handleOrderClick}
+          onOrderCheck={handleOrderChecked(true)}
+        />
       </div>
       <OrderForm
         orderId={orderState.id}
