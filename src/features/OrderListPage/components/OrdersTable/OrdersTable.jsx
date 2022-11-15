@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../../../shared/components";
 import { OrdersTableHeader } from "./OrdersTableHeader/OrdersTableHeader";
 import { OrdersTableBody } from "./OrdersTableBody/OrdersTableBody";
 import { OrdersTableFooter } from "./OrdersTableFooter/OrdersTableFooter";
-import { getOrders } from "../../model/orders";
+import { deleteOrders, getOrders } from "../../model/orders";
 import { useMemo, useReducer, useState } from "react";
 
 const initialState = { checkedOrdersId: new Set() };
@@ -26,6 +26,7 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
   const [orders, ordersCount] = useSelector(getOrders);
   const [allChecked, setAllChecked] = useState(orderChecked);
   const [state, dispatch] = useReducer(reducer, initialState, init);
+  const dispatcher = useDispatch();
   const handleAllChecked = ({ target: { checked } }) => {
     orders.forEach(({ id }) => {
       dispatch({ id, checked });
@@ -40,6 +41,12 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
   const handleOrderChecked = (id, checked) => {
     dispatch({ id, checked });
     if (checked) onOrderCheck();
+  };
+
+  const handleOrderDelete = () => {
+    dispatcher(deleteOrders({ ids: [...state.checkedOrdersId] }));
+    dispatch({ clean: true });
+    setAllChecked(false);
   };
 
   useMemo(() => {
@@ -62,6 +69,7 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
         checkedOrdersId={state.checkedOrdersId}
         ordersCount={ordersCount}
         onPageClick={handlePageClick}
+        onOrderDelete={handleOrderDelete}
       />
     </Table>
   );

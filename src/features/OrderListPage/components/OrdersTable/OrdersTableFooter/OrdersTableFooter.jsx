@@ -15,6 +15,7 @@ export const OrdersTableFooter = ({
   ordersCount,
   checkedOrdersId,
   onPageClick,
+  onOrderDelete,
 }) => {
   const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
   const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
@@ -22,6 +23,11 @@ export const OrdersTableFooter = ({
     setDeleteDropdownOpen(!isDeleteDropdownOpen);
   const handleStatusDropdownOpen = () =>
     setStatusDropdownOpen(!isStatusDropdownOpen);
+  const handleOrderDeleteCancel = () => setDeleteDropdownOpen(false);
+  const handleOrderDeleteApprove = () => {
+    onOrderDelete();
+    setDeleteDropdownOpen(false);
+  };
   return (
     <TableFooter>
       <div className={styles.tableFooterButtonsStatus}>
@@ -49,7 +55,11 @@ export const OrdersTableFooter = ({
           >
             Удалить
           </Button>
-          <DeleteRowDropdown isOpen={isDeleteDropdownOpen} />
+          <DeleteRowDropdown
+            isOpen={isDeleteDropdownOpen}
+            onCancel={handleOrderDeleteCancel}
+            onDelete={handleOrderDeleteApprove}
+          />
         </div>
       </div>
       <Pagination ordersCount={ordersCount} onClick={onPageClick} />

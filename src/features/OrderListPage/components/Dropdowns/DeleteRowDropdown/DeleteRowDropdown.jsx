@@ -6,7 +6,7 @@ import {
 } from "../../../../../shared/components";
 import styles from "./DeleteRowDropdown.module.css";
 
-export const DeleteRowDropdown = ({ isOpen }) => {
+export const DeleteRowDropdown = ({ isOpen, onCancel, onDelete }) => {
   const classNames = classnames(styles._, {
     [styles.disabled]: !isOpen,
   });
@@ -18,7 +18,7 @@ export const DeleteRowDropdown = ({ isOpen }) => {
         buttonStyle={ButtonStyle.reverse}
         size={ButtonSize.small}
         isAlign={true}
-        onClick={() => {}}
+        onClick={onDelete}
       >
         Удалить
       </Button>
@@ -26,7 +26,7 @@ export const DeleteRowDropdown = ({ isOpen }) => {
         buttonStyle={ButtonStyle.primary}
         size={ButtonSize.small}
         isAlign={true}
-        onClick={() => {}}
+        onClick={onCancel}
       >
         Отмена
       </Button>
