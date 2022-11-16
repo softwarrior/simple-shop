@@ -47,6 +47,7 @@ export const OrdersTableFooter = ({
             Изменить статус
           </Button>
           <ChangeStatusDropdown
+            className={styles.dropdown}
             isOpen={isStatusDropdownOpen}
             onChange={onOrderChangeStatus}
           />

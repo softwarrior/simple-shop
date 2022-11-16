@@ -40,3 +40,8 @@
   display: flex;
   justify-content: center;
 }
+
+.dropdown {
+  left: 8rem;
+  top: -13.5rem;
+}

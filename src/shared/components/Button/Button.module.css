@@ -17,11 +17,14 @@
   stroke: var(--color-medium);
 }
 
-.buttonInactive,
-.buttonInactive > .buttonIcon {
-  background-color: transparent;
+.buttonInactive {
   color: var(--color-secondary);
-  stroke: var(--color-secondary);
+  background-color: transparent;
+}
+
+.buttonInactive .buttonIcon {
+  fill: var(--color-secondary);
+  stroke: none;
 }
 
 .buttonIconContainer {

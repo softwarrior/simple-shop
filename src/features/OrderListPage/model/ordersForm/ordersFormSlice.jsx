@@ -1,18 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import mock from "../../components/OrderForm/ProductsTable/ProductsTable.mock.json";
 
 const initialState = {
-  customer: "",
+  products: mock,
 };
 
 const ordersFormSlice = createSlice({
   name: "ordersForm",
   initialState,
-  reducers: {
-    setCustomer(state, action) {
-      state.customer = action.payload;
-    },
-  },
+  reducers: {},
 });
 
-export const { setCustomer } = ordersFormSlice.actions;
 export const ordersFormReducer = ordersFormSlice.reducer;

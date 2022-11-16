@@ -4,13 +4,18 @@ import styles from "./ChangeStatusDropdown.module.css";
 import { STATUS_NAME } from "../../../OrderListPage.constants";
 
 export const ChangeStatusDropdown = ({
+  className,
   isOpen,
   onChange,
   name = "dropdownStatus",
 }) => {
-  const classNames = classnames(styles._, {
-    [styles.disabled]: !isOpen,
-  });
+  const classNames = classnames(
+    styles._,
+    {
+      [styles.disabled]: !isOpen,
+    },
+    className
+  );
   return (
     <div className={classNames}>
       <ul className={styles.list}>

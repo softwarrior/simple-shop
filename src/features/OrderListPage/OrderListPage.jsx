@@ -31,11 +31,13 @@ export const OrderListPage = () => {
           onOrderCheck={handleOrderChecked(true)}
         />
       </div>
-      <OrderForm
-        orderId={orderState.id}
-        isOpen={orderState.isOpen}
-        onClose={handleClose}
-      />
+      {orderState.id && (
+        <OrderForm
+          orderId={orderState.id}
+          isOpen={orderState.isOpen}
+          onClose={handleClose}
+        />
+      )}
     </>
   );
 };

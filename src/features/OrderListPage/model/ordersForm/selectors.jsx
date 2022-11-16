@@ -1,5 +1,1 @@
-import { createSelector } from "reselect";
-
-export const getForm = (state) => state.ordersForm;
-
-export const getCustomer = createSelector(getForm, (form) => form.customer);
+export const getProducts = (state) => state.ordersForm.products;

@@ -1,5 +1,6 @@
 import styles from "./TableRow.module.css";
+import classnames from "classnames";
 
-export const TableRow = ({ children }) => {
-  return <div className={styles._}>{children}</div>;
+export const TableRow = ({ className, children }) => {
+  return <div className={classnames(styles._, className)}>{children}</div>;
 };
