@@ -1,6 +1,6 @@
 import classnames from "classnames";
-import { useContext } from "react";
-
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   Button,
   ButtonSize,
@@ -8,26 +8,36 @@ import {
   Icon,
   IconType,
   Input,
+  useDebounce,
 } from "../../../../../shared/components";
-
+import { setFilter, resetFilters } from "../../../model/ordersFilter";
 import { FilterLoader } from "../FilterLoader/FilterLoader";
-
-import { OrderListPageContext } from "../../../OrderListPage";
 import styles from "./FilterSearchRow.module.css";
 
-export const FilterSearchRow = () => {
-  const {
-    isFilterOpen,
-    onFilterOpen,
-    onFilterReset,
-    searchValue,
-    onSearchChange,
-    onSearchReset,
-  } = useContext(OrderListPageContext);
+export const FilterSearchRow = ({
+  isFilterOpen,
+  onFilterOpen,
+  onFilterReset,
+}) => {
+  const dispatch = useDispatch();
 
   let resetClassNames = classnames({
     [styles.hidden]: !isFilterOpen,
   });
+
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearchChange = ({ target: { value } }) => setSearchValue(value);
+  const handleSearchReset = () => setSearchValue("");
+  const handleResetAllClick = () => {
+    onFilterReset();
+    setSearchValue("");
+    dispatch(resetFilters());
+  };
+
+  const debouncedSearchValue = useDebounce(searchValue, 300);
+  useEffect(() => {
+    dispatch(setFilter({ key: "search", value: debouncedSearchValue }));
+  }, [debouncedSearchValue]);
 
   return (
     <div className={styles._}>
@@ -39,8 +49,8 @@ export const FilterSearchRow = () => {
             <Icon className={styles.searchIcon} iconType={IconType.search} />
           }
           value={searchValue}
-          onChange={onSearchChange}
-          onReset={onSearchReset}
+          onChange={handleSearchChange}
+          onReset={handleSearchReset}
         />
         <Button
           buttonStyle={isFilterOpen ? ButtonStyle.primary : ButtonStyle.reverse}
@@ -56,7 +66,7 @@ export const FilterSearchRow = () => {
           buttonStyle={ButtonStyle.transparent}
           size={ButtonSize.medium}
           isAlign={true}
-          onClick={onFilterReset}
+          onClick={handleResetAllClick}
         >
           Сбросить фильтры
         </Button>

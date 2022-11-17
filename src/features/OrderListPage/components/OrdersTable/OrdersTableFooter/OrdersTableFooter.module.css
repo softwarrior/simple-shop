@@ -31,4 +31,11 @@
 
 .tableFooterPaginationForm {
   display: flex;
+  position: relative;
+}
+
+.paginationBar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

@@ -1,66 +1,73 @@
-import classnames from "classnames";
-
-import {
-  TableHeader,
-  Checkbox,
-  TableHeaderCell,
-  Icon,
-  IconType,
-} from "../../../../../shared/components";
-
+import { TableHeader, Checkbox } from "../../../../../shared/components";
+import { HeaderCell } from "./HeaderCell/HeaderCell";
 import styles from "./OrdersTableHeader.module.css";
 import commonStyles from "../OrdersTable.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDirection,
+  getSortField,
+  setFilter,
+} from "../../../model/ordersFilter";
 
-const headerCells = [
-  {
+const HEADER_CELLS = {
+  orderNumber: {
     className: commonStyles.orderNumberWrap,
     text: "#",
   },
-  {
+  date: {
     className: commonStyles.dateWrap,
     text: "Дата",
     isIcon: true,
   },
-  {
-    className: classnames(
-      commonStyles.statusWrap,
-      styles.tableHeaderOrderActive
-    ),
+  status: {
+    className: commonStyles.statusWrap,
     text: "Статус",
     isIcon: true,
   },
-  {
+  amount: {
     className: commonStyles.amountWrap,
     text: "Позиций",
     isIcon: true,
   },
-  {
+  sum: {
     className: commonStyles.sumWrap,
     text: "Сумма",
     isIcon: true,
   },
-  {
+  customer: {
     className: commonStyles.customerWrap,
     text: "ФИО покупателя",
   },
-];
+};
 
 export const OrdersTableHeader = () => {
+  const sortField = useSelector(getSortField);
+  const direction = useSelector(getDirection);
+  const dispatch = useDispatch();
+  const handleSortField = (field) => {
+    if (sortField === field)
+      dispatch(setFilter({ key: "direction", value: -direction }));
+    else dispatch(setFilter({ key: "direction", value: 1 }));
+    dispatch(setFilter({ key: "sortField", value: field }));
+  };
   return (
     <div className={styles._}>
       <TableHeader>
         <Checkbox className={commonStyles.checkboxWrap} />
-        {headerCells.map(({ className, text, isIcon }) => (
-          <TableHeaderCell key={text} className={className}>
-            <span className={styles.tableHeaderText}>{text}</span>
-            {isIcon && (
-              <Icon
-                className={styles.tableHeaderIcon}
-                iconType={IconType.v_arrow}
-              />
-            )}
-          </TableHeaderCell>
-        ))}
+        {Object.entries(HEADER_CELLS).map(
+          ([field, { className, text, isIcon }]) => (
+            <HeaderCell
+              key={field}
+              id={field}
+              className={className}
+              text={text}
+              isIcon={isIcon}
+              isActive={sortField === field}
+              direction={direction}
+              onClick={isIcon ? () => handleSortField(field) : null}
+            />
+          )
+        )}
       </TableHeader>
     </div>
   );

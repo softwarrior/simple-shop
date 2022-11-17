@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import {
   Button,
   ButtonSize,
@@ -7,59 +5,51 @@ import {
   IconType,
   TableFooter,
 } from "../../../../../shared/components";
-
-import { OrdersTableDeleteDropdown } from "../OrdersTableDeleteDropdown/OrdersTableDeleteDropdown";
-import { OrderListPageContext } from "../../../OrderListPage";
-
+import { DeleteRowDropdown } from "../../Dropdowns/DeleteRowDropdown/DeleteRowDropdown";
+import { ChangeStatusDropdown } from "../../Dropdowns/ChangeStatusDropdown/ChangeStatusDropdown";
+import { Pagination } from "./Pagination/Pagination";
 import styles from "./OrdersTableFooter.module.css";
+import { useState } from "react";
 
-export const OrdersTableFooter = () => {
-  const { onDeleteDropdownOpen } = useContext(OrderListPageContext);
+export const OrdersTableFooter = ({ ordersCount }) => {
+  const [isDeleteDropdownOpen, setDeleteDropdownOpen] = useState(false);
+  const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
+  const handleDeleteDropdownOpen = () => {
+    setDeleteDropdownOpen(!isDeleteDropdownOpen);
+  };
+  const handleStatusDropdownOpen = () => {
+    setStatusDropdownOpen(!isStatusDropdownOpen);
+  };
 
   return (
     <TableFooter>
       <div className={styles.tableFooterButtonsStatus}>
         <div className={styles.tableFooterAction}>
-          <span className={styles.tableFooterText}>{"Выбрано записей: 5"}</span>
+          <span className={styles.tableFooterText}>{"Выбрано записей: 0"}</span>
           <Button
             className={styles.tableFooterButton}
             buttonStyle={ButtonStyle.primary}
             size={ButtonSize.small}
             iconType={IconType.pencil}
             isAlign={true}
-            onClick={() => {}}
+            onClick={handleStatusDropdownOpen}
           >
             Изменить статус
           </Button>
+          <ChangeStatusDropdown isOpen={isStatusDropdownOpen} />
           <Button
             buttonStyle={ButtonStyle.danger}
             size={ButtonSize.small}
             iconType={IconType.bin}
             isAlign={true}
-            onClick={onDeleteDropdownOpen}
+            onClick={handleDeleteDropdownOpen}
           >
             Удалить
           </Button>
-          <OrdersTableDeleteDropdown />
+          <DeleteRowDropdown isOpen={isDeleteDropdownOpen} />
         </div>
       </div>
-      <div className={styles.tableFooterPagination}>
-        <div className={styles.tableFooterPaginationForm}>
-          {["1", "2", "3", "4", "5", "...", "100", "#"].map((text) => (
-            <Button
-              key={text}
-              buttonStyle={
-                text === "1" ? ButtonStyle.primary : ButtonStyle.reverse
-              }
-              size={ButtonSize.small}
-              isAlign={true}
-              onClick={() => {}}
-            >
-              {text}
-            </Button>
-          ))}
-        </div>
-      </div>
+      <Pagination ordersCount={ordersCount} />
     </TableFooter>
   );
 };

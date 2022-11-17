@@ -1,24 +1,23 @@
 import { useContext } from "react";
-
 import {
   Button,
   ButtonSize,
   ButtonStyle,
   IconType,
 } from "../../../../shared/components";
-
-import { HeaderThemeDropdown } from "./HeaderThemeDropdown/HeaderThemeDropdown";
+import { ChangeThemeDropdown } from "../Dropdowns/ChangeThemeDropdown/ChangeThemeDropdown";
 import {
   ThemeContext,
   ThemeType,
 } from "../../../ThemeContextProvider/ThemeContextProvider";
-
-import { OrderListPageContext } from "../../OrderListPage";
 import styles from "./Header.module.css";
+import { useState } from "react";
 
 export const Header = ({ title }) => {
-  const { isThemeDropdownOpen, onThemeDropdownOpen } =
-    useContext(OrderListPageContext);
+  const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const handleThemeDropdownOpen = () =>
+    setThemeDropdownOpen(!isThemeDropdownOpen);
+
   const { theme } = useContext(ThemeContext);
 
   let buttonText = theme == ThemeType.dark ? "Темная тема" : "Светлая тема";
@@ -34,11 +33,11 @@ export const Header = ({ title }) => {
         size={ButtonSize.medium}
         iconType={iconType}
         isAlign={true}
-        onClick={onThemeDropdownOpen}
+        onClick={handleThemeDropdownOpen}
       >
         {buttonText}
       </Button>
-      <HeaderThemeDropdown />
+      <ChangeThemeDropdown isOpen={isThemeDropdownOpen} />
     </div>
   );
 };

@@ -4,16 +4,15 @@ import {
   TableCell,
   TableBody,
 } from "../../../../../shared/components";
-
 import { Status } from "./Status/Status";
-
+import { Sum } from "./Sum/Sum";
+import { Dates } from "./Dates/Dates";
 import styles from "./OrdersTableBody.module.css";
 import commonStyles from "../OrdersTable.module.css";
-import mock from "../../../OrderListPage.mock.json";
 
-export const OrdersTableBody = () => {
-  const rows = mock.map(
-    ({ id, orderNumber, date, status, amount, sum, customer }) => {
+export const OrdersTableBody = ({ orders }) => {
+  const rows = orders.map(
+    ({ id, orderNumber, date, status, amount, sum, currency, customer }) => {
       return (
         <TableRow key={id}>
           <Checkbox className={commonStyles.checkboxWrap} />
@@ -21,16 +20,16 @@ export const OrdersTableBody = () => {
             <span className={styles.cellText}>{orderNumber}</span>
           </TableCell>
           <TableCell className={commonStyles.dateWrap}>
-            <span className={styles.cellText}>{date}</span>
+            <Dates>{date}</Dates>
           </TableCell>
           <TableCell className={commonStyles.statusWrap}>
-            <Status status={status} />
+            <Status>{status}</Status>
           </TableCell>
           <TableCell className={commonStyles.amountWrap}>
             <span className={styles.cellText}>{amount}</span>
           </TableCell>
           <TableCell className={commonStyles.sumWrap}>
-            <span className={styles.cellText}>{sum}</span>
+            <Sum currency={currency}>{sum}</Sum>
           </TableCell>
           <TableCell className={commonStyles.customerWrap}>
             <span className={styles.cellText}>{customer}</span>

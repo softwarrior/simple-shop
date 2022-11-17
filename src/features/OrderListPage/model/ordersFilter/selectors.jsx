@@ -1,0 +1,9 @@
+export const getSearch = (state) => state.ordersFilter.search;
+export const getStatus = (state) => state.ordersFilter.status;
+export const getDateFrom = (state) => state.ordersFilter.dateFrom;
+export const getDateTo = (state) => state.ordersFilter.dateTo;
+export const getSumFrom = (state) => state.ordersFilter.sumFrom;
+export const getSumTo = (state) => state.ordersFilter.sumTo;
+export const getSortField = (state) => state.ordersFilter.sortField;
+export const getDirection = (state) => state.ordersFilter.direction;
+export const getPage = (state) => state.ordersFilter.page;

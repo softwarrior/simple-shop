@@ -1,21 +1,14 @@
-import { useContext } from "react";
 import classnames from "classnames";
-
 import {
   Button,
   ButtonSize,
   ButtonStyle,
 } from "../../../../../shared/components";
+import styles from "./DeleteRowDropdown.module.css";
 
-import { OrderListPageContext } from "../../../OrderListPage";
-
-import styles from "./OrdersTableDeleteDropdown.module.css";
-
-export const OrdersTableDeleteDropdown = () => {
-  const { isDeleteDropdownOpen } = useContext(OrderListPageContext);
-
+export const DeleteRowDropdown = ({ isOpen }) => {
   const classNames = classnames(styles._, {
-    [styles.disabled]: !isDeleteDropdownOpen,
+    [styles.disabled]: !isOpen,
   });
 
   return (

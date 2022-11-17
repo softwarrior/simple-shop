@@ -1,0 +1,15 @@
+._ {
+  display: flex;
+  position: relative;
+}
+
+.dots {
+  margin-top: 0.28rem;
+  color: var(--color-medium);
+  cursor: default;
+}
+
+.wrap {
+  display: flex;
+  position: relative;
+}
