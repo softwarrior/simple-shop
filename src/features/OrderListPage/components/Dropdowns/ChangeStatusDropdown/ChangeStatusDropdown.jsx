@@ -21,7 +21,13 @@ export const ChangeStatusDropdown = ({
       <ul className={styles.list}>
         {Object.entries(STATUS_NAME).map(([key, value]) => (
           <li key={key} className={styles.item}>
-            <Radio title={value} value={key} name={name} onChange={onChange} />
+            <Radio
+              title={value}
+              value={key}
+              name={name}
+              checked={false}
+              onChange={onChange}
+            />
           </li>
         ))}
       </ul>

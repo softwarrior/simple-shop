@@ -11,6 +11,7 @@ import { Pagination } from "./Pagination/Pagination";
 import styles from "./OrdersTableFooter.module.css";
 import { useState } from "react";
 import classnames from "classnames";
+import { useEffect } from "react";
 
 export const OrdersTableFooter = ({
   ordersCount,
@@ -35,6 +36,13 @@ export const OrdersTableFooter = ({
     onOrderChangeStatus(status);
     setStatusDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (checkedOrdersId.size === 0) {
+      setStatusDropdownOpen(false);
+      setDeleteDropdownOpen(false);
+    }
+  }, [checkedOrdersId.size]);
 
   const actionClassNames = classnames(styles.tableFooterAction, {
     [styles.hidden]: checkedOrdersId.size === 0,
