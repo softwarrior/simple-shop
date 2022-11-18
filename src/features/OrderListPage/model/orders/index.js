@@ -1,2 +1,2 @@
-export * from "./ordersSlice.jsx";
-export * from "./selectors.jsx";
+export * from "./ordersSlice.js";
+export * from "./selectors.js";

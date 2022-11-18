@@ -14,19 +14,20 @@ export const isInRange = (min, max) => (value) => {
 };
 
 export const isSubstring = (substr) => (str) => {
+  if (!substr || !substr.length) return true;
   return str.startsWith(substr);
 };
 
-export const isIncludes = (arr) => (value) => {
+export const isIncludes = (substr) => (str) => {
+  if (!substr || !substr.length) return true;
+  return str.includes(substr);
+};
+
+export const isArrayIncludes = (arr) => (value) => {
   if (!arr || !arr.length) return true;
   return arr.includes(value);
 };
 
-export const isIncludeNumberOrString = (value) => (number, str) => {
-  if (isNumber(value)) {
-    return number.startsWith(value);
-  }
-  return str.includes(value);
-};
-
 export const areAllThruthy = (arr) => arr.every(Boolean);
+
+export const areSomeThruthy = (arr) => arr.some(Boolean);

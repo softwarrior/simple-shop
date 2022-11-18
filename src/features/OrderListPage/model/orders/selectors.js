@@ -3,8 +3,10 @@ import { PAGE_SIZE } from "../../OrderListPage.constants";
 import {
   isDateInRange,
   isInRange,
+  isSubstring,
   areAllThruthy,
-  isIncludeNumberOrString,
+  areSomeThruthy,
+  isArrayIncludes,
   isIncludes,
 } from "../../../../shared/utils";
 
@@ -27,8 +29,9 @@ export const getOrders = createSelector(
 );
 
 const filterOrders = (orders, filters) => {
-  const statusFilter = isIncludes(filters.status);
-  const searchFilter = isIncludeNumberOrString(filters.search);
+  const statusFilter = isArrayIncludes(filters.status);
+  const searchNumberFilter = isSubstring(filters.search);
+  const searchNameFilter = isIncludes(filters.search);
   const dateFilter = isDateInRange(
     parseDate(filters.dateFrom),
     parseDate(filters.dateTo)
@@ -40,7 +43,10 @@ const filterOrders = (orders, filters) => {
   return orders.filter(({ customer, date, sum, orderNumber, status }) => {
     return areAllThruthy([
       statusFilter(status),
-      searchFilter(orderNumber, customer),
+      areSomeThruthy([
+        searchNumberFilter(orderNumber),
+        searchNameFilter(customer),
+      ]),
       dateFilter(parseDate(date)),
       sumFiler(parseInt(sum)),
     ]);
