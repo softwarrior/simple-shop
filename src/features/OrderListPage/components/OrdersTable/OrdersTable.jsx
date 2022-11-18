@@ -53,6 +53,8 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
     state.checkedOrdersId.forEach((id) => {
       dispatcher(changeOrder({ id, key: "status", value: status }));
     });
+    dispatch({ clean: true });
+    setAllChecked(false);
   };
 
   useMemo(() => {

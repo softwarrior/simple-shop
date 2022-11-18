@@ -10,6 +10,7 @@ import { ChangeStatusDropdown } from "../../Dropdowns/ChangeStatusDropdown/Chang
 import { Pagination } from "./Pagination/Pagination";
 import styles from "./OrdersTableFooter.module.css";
 import { useState } from "react";
+import classnames from "classnames";
 
 export const OrdersTableFooter = ({
   ordersCount,
@@ -29,10 +30,20 @@ export const OrdersTableFooter = ({
     onOrderDelete();
     setDeleteDropdownOpen(false);
   };
+
+  const handleOrderChangeStatus = (status) => {
+    onOrderChangeStatus(status);
+    setStatusDropdownOpen(false);
+  };
+
+  const actionClassNames = classnames(styles.tableFooterAction, {
+    [styles.hidden]: checkedOrdersId.size === 0,
+  });
+
   return (
     <TableFooter>
       <div className={styles.tableFooterButtonsStatus}>
-        <div className={styles.tableFooterAction}>
+        <div className={actionClassNames}>
           <span
             className={styles.tableFooterText}
           >{`Выбрано записей: ${checkedOrdersId.size}`}</span>
@@ -49,7 +60,7 @@ export const OrdersTableFooter = ({
           <ChangeStatusDropdown
             className={styles.dropdown}
             isOpen={isStatusDropdownOpen}
-            onChange={onOrderChangeStatus}
+            onChange={handleOrderChangeStatus}
           />
           <Button
             buttonStyle={ButtonStyle.danger}
@@ -61,6 +72,7 @@ export const OrdersTableFooter = ({
             Удалить
           </Button>
           <DeleteRowDropdown
+            rowCount={checkedOrdersId.size}
             isOpen={isDeleteDropdownOpen}
             onCancel={handleOrderDeleteCancel}
             onDelete={handleOrderDeleteApprove}

@@ -19,7 +19,7 @@
   line-height: 1rem;
   width: 8.1rem;
   margin-right: 1rem;
-  color: var(--color-secondary);
+  color: var(--color-medium);
 }
 
 .tableFooterButton {
@@ -44,4 +44,8 @@
 .dropdown {
   left: 8rem;
   top: -13.5rem;
+}
+
+.hidden {
+  display: none;
 }
