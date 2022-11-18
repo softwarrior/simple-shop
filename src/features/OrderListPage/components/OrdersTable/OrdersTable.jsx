@@ -23,7 +23,7 @@ const reducer = (state, action) => {
 };
 
 export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
-  const [orders, ordersCount] = useSelector(getOrders);
+  const { orders, totalOrdersCount } = useSelector(getOrders);
   const [allChecked, setAllChecked] = useState(orderChecked);
   const [state, dispatch] = useReducer(reducer, initialState, init);
   const dispatcher = useDispatch();
@@ -73,7 +73,7 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
       />
       <OrdersTableFooter
         checkedOrdersId={state.checkedOrdersId}
-        ordersCount={ordersCount}
+        ordersCount={totalOrdersCount}
         onPageClick={handlePageClick}
         onOrderDelete={handleOrderDelete}
         onOrderChangeStatus={handleOrderChangeStatus}

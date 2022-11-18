@@ -24,7 +24,7 @@ export const getOrders = createSelector(
     const filteredOrders = filterOrders(orders, filters);
     const sortedOrders = sortOrders(filteredOrders, filters);
     const paginatedOrders = paginateOrders(sortedOrders, filters);
-    return [paginatedOrders, sortedOrders.length];
+    return { orders: paginatedOrders, totalOrdersCount: sortedOrders.length };
   }
 );
 
