@@ -29,6 +29,7 @@ export const FilterRow = ({ isFilterOpen, isFilterReset, onFilterAccept }) => {
       setSumFrom("");
       setSumTo("");
       setStatus([]);
+      setStatusDropdownOpen(false);
     }
   }, [isFilterReset]);
 

@@ -13,9 +13,14 @@ const ordersSlice = createSlice({
     deleteOrders(state, { payload: { ids } }) {
       state.orders = state.orders.filter((order) => !ids.includes(order.id));
     },
-    changeOrder(state, { payload: { id, key, value } }) {
+    /**
+     * @param pairs Массив объектов ключ значение [ { key, value } ].
+     */
+    changeOrder(state, { payload: { id, pairs } }) {
       const order = state.orders.find((order) => order.id === id);
-      order[key] = value;
+      pairs.forEach(({ key, value }) => {
+        order[key] = value;
+      });
     },
   },
 });

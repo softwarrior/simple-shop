@@ -9,31 +9,57 @@ import {
   IconType,
   Input,
 } from "../../../../shared/components";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ProductsTable } from "./ProductsTable/ProductsTable";
 import { ChangeStatusDropdown } from "../Dropdowns/ChangeStatusDropdown/ChangeStatusDropdown";
 import { STATUS_NAME } from "../../OrderListPage.constants";
+import { CloseFormDropdown } from "../Dropdowns/CloseFormDropdown/CloseFormDropdown";
 
 export const OrderForm = ({ isOpen, onClose, orderId }) => {
   const order = useSelector(getOrderById(orderId));
+
   const [name, setName] = useState(order.customer);
   const handleNameChange = ({ target: { value } }) => setName(value);
   const handleNameReset = () => setName("");
-  const [isStatusDropdownOpen, setStatusDropdownOpen] = useState(false);
-  const [status, setStatus] = useState(order.status);
-  const handleStatusDropdownOpen = () =>
-    setStatusDropdownOpen(!isStatusDropdownOpen);
-  const handleOrderChangeStatus = (status) => setStatus(status);
+
+  const [status, setStatus] = useState({ name: order.status, isOpen: false });
+  const handleStatusDropdownOpen = () => {
+    setStatus({ name: status.name, isOpen: !status.isOpen });
+  };
+  const handleOrderChangeStatus = (status) => {
+    setStatus({ name: status, isOpen: false });
+  };
+
   const [code, setCode] = useState("");
-  const dispatch = useDispatch();
   const handleCodeChange = ({ target: { value } }) => setCode(value);
   const handleCodeReset = () => setCode("");
+
+  const dispatch = useDispatch();
   const handleSaveClick = () => {
     if (isCorrectCode && isCorrectName) {
-      dispatch(changeOrder({ id: orderId, key: "customer", value: name }));
-      dispatch(changeOrder({ id: orderId, key: "status", value: status }));
+      const pairs = [
+        { key: "customer", value: name },
+        { key: "status", value: status.name },
+      ];
+      dispatch(changeOrder({ id: orderId, pairs }));
       onClose();
     }
+  };
+
+  const [isCloseDropdownOpen, setCloseDropdownOpen] = useState(false);
+  const handleCloseDropdownOpen = () => {
+    if (isChanged) {
+      setCloseDropdownOpen(true);
+    } else {
+      onClose();
+    }
+  };
+  const handleClose = () => {
+    setCloseDropdownOpen(false);
+    onClose();
+  };
+  const handleLeave = () => {
+    setCloseDropdownOpen(false);
   };
 
   const date = Date.parse(order.date);
@@ -43,75 +69,82 @@ export const OrderForm = ({ isOpen, onClose, orderId }) => {
     [styles.hidden]: !isOpen,
   });
 
-  const isCorrectName = useMemo(() => {
-    return name.length > 0;
-  }, [name]);
+  const isCorrectName = name.length > 0;
+  const isCorrectCode = code === "123";
+  const isEmptyCode = code === "";
+  const isChanged = order.customer !== name || order.status !== status.name;
 
-  const isCorrectCode = useMemo(() => {
-    return code === "123";
-  }, [code]);
+  let errorText = "";
+  if (!isCorrectName && !isCorrectCode && !isEmptyCode) {
+    errorText = "Неправильное имя и код";
+  } else if (!isCorrectName) {
+    errorText = "Неправильное имя";
+  } else if (!isCorrectCode && !isEmptyCode) {
+    errorText = "Неправильный код";
+  }
 
   return (
     <div className={classNames}>
       <div className={styles.window}>
         <div className={styles.header}>
           <span className={styles.title}>{`Заявка #${order.orderNumber}`}</span>
-          <Button
-            buttonStyle={ButtonStyle.primary}
-            size={ButtonSize.medium}
-            iconType={IconType.x_large}
-            onClick={onClose}
-          ></Button>
+          <div className={styles.close}>
+            <Button
+              buttonStyle={ButtonStyle.primary}
+              size={ButtonSize.medium}
+              iconType={IconType.x_large}
+              onClick={handleCloseDropdownOpen}
+            ></Button>
+            <CloseFormDropdown
+              className={styles.closeDropdown}
+              isOpen={isCloseDropdownOpen}
+              onClose={handleClose}
+              onLeave={handleLeave}
+            />
+          </div>
         </div>
         <Input
           className={styles.date}
           title={"Дата и время заказа"}
           value={formatter.format(date)}
           disabled={true}
-        ></Input>
+        />
         <Input
           title={"ФИО покупателя"}
           value={name}
           corrected={isCorrectName}
           onChange={handleNameChange}
           onReset={handleNameReset}
-        ></Input>
+        />
         <ProductsTable />
-        <Input
-          title={"Уровень лояльности"}
-          value={"Новичек"}
-          disabled={true}
-        ></Input>
+        <Input title={"Уровень лояльности"} value={"Новичек"} disabled={true} />
         <div className={styles.status}>
           <Input
             title={"Статус заказа"}
-            value={STATUS_NAME[status]}
+            value={STATUS_NAME[status.name]}
             onClick={handleStatusDropdownOpen}
             onReset={handleStatusDropdownOpen}
             iconType={IconType.v_arrow}
             readOnly={true}
           />
           <ChangeStatusDropdown
-            className={styles.dropdown}
-            isOpen={isStatusDropdownOpen}
+            className={styles.statusDropdown}
+            isOpen={status.isOpen}
             onChange={handleOrderChangeStatus}
           />
         </div>
         <Input
           title={"Код подтверждения"}
           value={code}
-          corrected={isCorrectCode}
+          corrected={isCorrectCode || isEmptyCode}
           onChange={handleCodeChange}
           onReset={handleCodeReset}
-        ></Input>
+        />
         <div className={styles.footer}>
-          <span className={styles.error}>
-            {errorChecker(isCorrectName, isCorrectCode).errorText}
-          </span>
+          <span className={styles.error}>{errorText}</span>
           <Button
-            buttonStyle={
-              errorChecker(isCorrectName, isCorrectCode).saveButtonStyle
-            }
+            buttonStyle={ButtonStyle.primary}
+            disabled={!isCorrectName || !isCorrectCode || !isChanged}
             size={ButtonSize.medium}
             iconType={IconType.checkmark}
             onClick={handleSaveClick}
@@ -122,14 +155,4 @@ export const OrderForm = ({ isOpen, onClose, orderId }) => {
       </div>
     </div>
   );
-};
-
-const errorChecker = (isCorrectName, isCorrectCode) => {
-  let errorText = "";
-  if (!isCorrectName && !isCorrectCode) errorText = "Заполните данные";
-  else if (!isCorrectName) errorText = "Неправильное имя";
-  else if (!isCorrectCode) errorText = "Неправильный код";
-  const saveButtonStyle =
-    isCorrectName && isCorrectCode ? ButtonStyle.primary : ButtonStyle.inactive;
-  return { errorText, saveButtonStyle };
 };

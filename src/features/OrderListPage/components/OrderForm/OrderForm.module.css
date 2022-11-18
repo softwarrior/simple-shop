@@ -70,7 +70,7 @@
   position: relative;
 }
 
-.dropdown {
+.statusDropdown {
   left: 13rem;
   top: -11.7rem;
   z-index: 1;
@@ -95,4 +95,17 @@
   line-height: 1rem;
   color: var(--color-danger);
   padding-right: 1rem;
+}
+
+.close {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.closeDropdown {
+  position: absolute;
+  left: -7.7rem;
+  top: 1.9rem;
+  z-index: 1;
 }

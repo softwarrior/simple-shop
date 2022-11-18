@@ -108,8 +108,7 @@
 }
 
 .iconDisabled {
-  fill: var(--color-primary);
-  fill: var(--color-medium);
+  fill: var(--color-secondary);
 }
 
 .buttonDisabled {

@@ -139,3 +139,8 @@
 .buttonAlign {
   justify-content: center;
 }
+
+.buttonInactive:hover:enabled {
+  border-color: transparent;
+  cursor: default;
+}

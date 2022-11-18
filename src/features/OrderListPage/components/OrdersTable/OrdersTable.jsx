@@ -51,7 +51,8 @@ export const OrdersTable = ({ orderChecked, onOrderClick, onOrderCheck }) => {
 
   const handleOrderChangeStatus = (status) => {
     state.checkedOrdersId.forEach((id) => {
-      dispatcher(changeOrder({ id, key: "status", value: status }));
+      const pairs = [{ key: "status", value: status }];
+      dispatcher(changeOrder({ id, pairs }));
     });
     dispatch({ clean: true });
     setAllChecked(false);

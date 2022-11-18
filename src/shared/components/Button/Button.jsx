@@ -27,9 +27,13 @@ export const Button = ({
   iconType = null,
   onClick = noop,
   className,
+  disabled = false,
   children,
   ...props
 }) => {
+  if (disabled) {
+    buttonStyle = ButtonStyle.inactive;
+  }
   const classNames = classnames(
     styles.button,
     {
