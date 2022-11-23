@@ -40,7 +40,7 @@ const HEADER_CELLS = {
   },
 };
 
-export const OrdersTableHeader = () => {
+export const OrdersTableHeader = ({ checked, onChecked }) => {
   const sortField = useSelector(getSortField);
   const direction = useSelector(getDirection);
   const dispatch = useDispatch();
@@ -53,7 +53,11 @@ export const OrdersTableHeader = () => {
   return (
     <div className={styles._}>
       <TableHeader>
-        <Checkbox className={commonStyles.checkboxWrap} />
+        <Checkbox
+          checked={checked}
+          className={commonStyles.checkboxWrap}
+          onChange={onChecked}
+        />
         {Object.entries(HEADER_CELLS).map(
           ([field, { className, text, isIcon }]) => (
             <HeaderCell

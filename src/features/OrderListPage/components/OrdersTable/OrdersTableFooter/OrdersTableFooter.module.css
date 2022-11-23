@@ -15,10 +15,11 @@
 }
 
 .tableFooterText {
-  font-size: 13px;
-  line-height: 16px;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  width: 8.1rem;
   margin-right: 1rem;
-  color: var(--color-secondary);
+  color: var(--color-medium);
 }
 
 .tableFooterButton {
@@ -38,4 +39,13 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.dropdown {
+  left: 8rem;
+  top: -13.5rem;
+}
+
+.hidden {
+  display: none;
 }

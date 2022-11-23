@@ -18,6 +18,7 @@ export const FilterSearchRow = ({
   isFilterOpen,
   onFilterOpen,
   onFilterReset,
+  onFilterSearch,
 }) => {
   const dispatch = useDispatch();
 
@@ -37,6 +38,7 @@ export const FilterSearchRow = ({
   const debouncedSearchValue = useDebounce(searchValue, 300);
   useEffect(() => {
     dispatch(setFilter({ key: "search", value: debouncedSearchValue }));
+    onFilterSearch();
   }, [debouncedSearchValue]);
 
   return (

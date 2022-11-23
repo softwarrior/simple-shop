@@ -16,10 +16,13 @@ import { isNumber } from "../../../../../../shared/utils";
 const DOTS = "...";
 const SUFFIX = "#";
 
-export const Pagination = ({ ordersCount }) => {
+export const Pagination = ({ ordersCount, onClick }) => {
   const [isPageDropdownOpen, setPageDropdownOpen] = useState(false);
   const handlePageDropdownOpen = () => setPageDropdownOpen(!isPageDropdownOpen);
-  const handleDebouncedInputPage = (value) => setPage(value);
+  const handleDebouncedInputPage = (value) => {
+    setPage(value);
+    onClick(value);
+  };
 
   const dispatch = useDispatch();
   const activePage = useSelector(getPage) ?? 1;
@@ -48,6 +51,7 @@ export const Pagination = ({ ordersCount }) => {
       return;
     }
     setPage(value);
+    onClick(value);
   };
 
   return (

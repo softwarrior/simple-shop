@@ -1,0 +1,9 @@
+.cellText {
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: var(--color-secondary);
+}
+
+.lastRow {
+  border-bottom: unset;
+}

@@ -1,5 +1,6 @@
 import styles from "./TableFooter.module.css";
+import classnames from "classnames";
 
-export const TableFooter = ({ children }) => {
-  return <div className={styles._}>{children}</div>;
+export const TableFooter = ({ className, children }) => {
+  return <div className={classnames(styles._, className)}>{children}</div>;
 };

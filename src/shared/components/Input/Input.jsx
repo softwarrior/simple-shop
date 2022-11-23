@@ -52,10 +52,13 @@ export const Input = ({
           disabled={disabled}
           {...props}
         />
-        {!!iconType && value && (
+        {!!iconType && value && !disabled && (
           <button className={styles.button} onClick={onReset}>
             <Icon className={iconClassNames} iconType={iconType}></Icon>
           </button>
+        )}
+        {!!iconType && value && disabled && (
+          <Icon className={iconClassNames} iconType={iconType}></Icon>
         )}
       </div>
     </label>

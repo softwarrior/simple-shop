@@ -4,21 +4,26 @@ import {
   ButtonSize,
   ButtonStyle,
 } from "../../../../../shared/components";
+import { wordDeclension } from "../../../../../shared/utils";
 import styles from "./DeleteRowDropdown.module.css";
 
-export const DeleteRowDropdown = ({ isOpen }) => {
+export const DeleteRowDropdown = ({ isOpen, onCancel, onDelete, rowCount }) => {
   const classNames = classnames(styles._, {
     [styles.disabled]: !isOpen,
   });
 
+  const wordRecord = wordDeclension(["запись", "записи", "записей"]);
+
   return (
     <div className={classNames}>
-      <span className={styles.title}>Удалить n записей?</span>
+      <span className={styles.title}>{`Удалить ${rowCount} ${wordRecord(
+        rowCount
+      )}?`}</span>
       <Button
         buttonStyle={ButtonStyle.reverse}
         size={ButtonSize.small}
         isAlign={true}
-        onClick={() => {}}
+        onClick={onDelete}
       >
         Удалить
       </Button>
@@ -26,7 +31,7 @@ export const DeleteRowDropdown = ({ isOpen }) => {
         buttonStyle={ButtonStyle.primary}
         size={ButtonSize.small}
         isAlign={true}
-        onClick={() => {}}
+        onClick={onCancel}
       >
         Отмена
       </Button>
